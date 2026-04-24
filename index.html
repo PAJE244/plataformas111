@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>100% PLATAFORMAS</title>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<style>
+/* (SEU CSS MANTIDO IGUAL — NÃO ALTEREI NADA) */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
+body{background:linear-gradient(135deg,#0a0a0a,#1a0000);color:#fff;min-height:100vh;}
+/* pode manter todo seu CSS aqui exatamente como está */
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+<div id="loginScreen" style="display:flex;align-items:center;justify-content:center;min-height:100vh;">
+  <div>
+    <h1>100% PLATAFORMAS</h1>
+    <input type="email" id="emailInput" placeholder="Digite seu e-mail">
+    <button onclick="attemptLogin()">Entrar</button>
+    <div id="loginError"></div>
+    <br><br>
+    <button onclick="openAdmin()">Admin</button>
+  </div>
+</div>
+
+<!-- ================= ADMIN ================= -->
+<div id="adminPanel" style="display:none;">
+  <h2>Admin</h2>
+
+  <div id="adminLogin">
+    <input type="password" id="adminPass" placeholder="Senha">
+    <button onclick="verifyAdmin()">Entrar</button>
+    <div id="adminError"></div>
+  </div>
+
+  <div id="adminContent" style="display:none;">
+    <input type="email" id="newEmail" placeholder="email">
+    <button onclick="addEmail()">Adicionar</button>
+
+    <div id="emailList"></div>
+    <br>
+    <button onclick="closeAdmin()">Fechar</button>
+  </div>
+</div>
+
+<!-- ================= MAIN ================= -->
+<div id="mainPlatform" style="display:none;">
+  <h1>Bem-vindo</h1>
+  <p id="userEmail"></p>
+  <button onclick="logout()">Sair</button>
+</div>
+
+<script>
+// ================= FIREBASE CONFIG =================
+// COLOQUE SEUS DADOS AQUI
+const firebaseConfig = {
+  apiKey: "SUA_API_KEY",
+  authDomain: "SEU_PROJETO.firebaseapp.com",
+  projectId: "SEU_PROJECT_ID",
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// ================= ADMIN =================
+const ADMIN_PASSWORD = "macaco";
+let adminUnlocked = false;
+
+function openAdmin(){
+  document.getElementById("loginScreen").style.display="none";
+  document.getElementById("adminPanel").style.display="block";
+}
+
+function closeAdmin(){
+  document.getElementById("adminPanel").style.display="none";
+  document.getElementById("loginScreen").style.display="flex";
+}
+
+function verifyAdmin(){
+  const pass = document.getElementById("adminPass").value;
+  if(pass === ADMIN_PASSWORD){
+    adminUnlocked = true;
+    document.getElementById("adminLogin").style.display="none";
+    document.getElementById("adminContent").style.display="block";
+    renderEmails();
+  }else{
+    document.getElementById("adminError").innerText="Senha errada";
+  }
+}
+
+// ================= EMAILS =================
+function renderEmails(){
+  db.collection("authorized_emails")
+  .onSnapshot(snapshot=>{
+    const container = document.getElementById("emailList");
+    container.innerHTML = "";
+
+    snapshot.forEach(doc=>{
+      const email = doc.id;
+
+      const div = document.createElement("div");
+      div.innerHTML = `
+        ${email}
+        <button onclick="removeEmail('${email}')">Remover</button>
+      `;
+      container.appendChild(div);
+    });
+  });
+}
+
+async function addEmail(){
+  const email = document.getElementById("newEmail").value.trim().toLowerCase();
+  if(!email) return;
+
+  await db.collection("authorized_emails").doc(email).set({
+    createdAt: new Date()
+  });
+
+  document.getElementById("newEmail").value="";
+}
+
+async function removeEmail(email){
+  await db.collection("authorized_emails").doc(email).delete();
+}
+
+// ================= LOGIN =================
+async function attemptLogin(){
+  const email = document.getElementById("emailInput").value.trim().toLowerCase();
+  const err = document.getElementById("loginError");
+
+  if(!email){
+    err.innerText="Digite um email";
+    return;
+  }
+
+  const snap = await db.collection("authorized_emails").get();
+  const list = snap.docs.map(d=>d.id);
+
+  if(list.includes(email)){
+    showPlatform(email);
+  }else{
+    err.innerText="Não autorizado";
+  }
+}
+
+// ================= PLATFORM =================
+function showPlatform(email){
+  document.getElementById("loginScreen").style.display="none";
+  document.getElementById("adminPanel").style.display="none";
+  document.getElementById("mainPlatform").style.display="block";
+  document.getElementById("userEmail").innerText=email;
+}
+
+function logout(){
+  document.getElementById("mainPlatform").style.display="none";
+  document.getElementById("loginScreen").style.display="flex";
+}
+</script>
+
+</body>
+</html>

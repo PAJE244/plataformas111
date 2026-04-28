@@ -109,7 +109,7 @@ body{
   opacity:0.12;
   transition:0.3s;
   cursor:pointer;
-  display:inline-flex;
+  display:none; /* Escondido por padrão, só aparece se for admin */
   align-items:center;
   justify-content:center;
   width:28px;
@@ -172,33 +172,6 @@ body{
 
 .admin-close:hover{
   background:rgba(255,0,0,0.2);
-}
-
-/* Admin password step */
-.admin-password-step{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,0,0,0.15);
-  border-radius:24px;
-  padding:40px 30px;
-  text-align:center;
-}
-
-.admin-password-step h3{
-  font-size:18px;
-  margin-bottom:6px;
-}
-
-.admin-password-step p{
-  font-size:13px;
-  opacity:0.5;
-  margin-bottom:25px;
-}
-
-.admin-password-error{
-  color:#ff4d4d;
-  font-size:13px;
-  margin-top:10px;
-  min-height:20px;
 }
 
 /* Admin content */
@@ -532,7 +505,7 @@ footer{
   .add-email-row{flex-direction:column;}
 }
 
-/* Estilo para o grupo de input que agora é o botão do Google */
+/* Estilo para o grupo de input */
 .input-group{
   position:relative;
   margin-bottom:20px;
@@ -586,7 +559,8 @@ footer{
       <div class="login-error" id="loginError"></div>
     </div>
 
-    <div class="admin-trigger" onclick="openAdmin()" title="⚙">
+    <!-- O gatilho de admin agora só aparece se o usuário for admin -->
+    <div class="admin-trigger" id="adminTrigger" onclick="openAdmin()" title="⚙">
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
     </div>
   </div>
@@ -599,18 +573,7 @@ footer{
       <button class="admin-close" onclick="closeAdmin()">✕</button>
     </div>
 
-    <div class="admin-password-step" id="adminPasswordStep">
-      <h3>Senha de acesso</h3>
-      <p>Digite a senha para gerenciar os e-mails autorizados</p>
-      <div class="input-group">
-        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
-        <input type="password" id="adminPassInput" placeholder="Senha do administrador">
-      </div>
-      <button class="login-btn" onclick="verifyAdmin()">ACESSAR PAINEL</button>
-      <div class="admin-password-error" id="adminPassError"></div>
-    </div>
-
-    <div class="admin-content" id="adminContent" style="display:none;">
+    <div class="admin-content" id="adminContent">
       <h3>E-mails autorizados</h3>
       <p>Adicione ou remova e-mails que podem acessar a plataforma</p>
 
@@ -712,7 +675,7 @@ https://waygroundx.vercel.app/
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBiUKpL3JZ4Dm4Ie29YwDIgV05Ly-ynOjQ",
@@ -740,6 +703,8 @@ window.doc = doc;
 window.signOut = signOut;
 window.signInWithPopup = signInWithPopup;
 window.provider = provider;
+window.query = query;
+window.where = where;
 
 /* ================= LOGIN GOOGLE ================= */
 window.loginGoogle = async function() {
@@ -750,17 +715,13 @@ window.loginGoogle = async function() {
     const result = await signInWithPopup(auth, provider);
     const email = result.user.email.toLowerCase();
 
-    const query = await getDocs(collection(db, "emails"));
-    let autorizado = false;
-
-    query.forEach(docSnap => {
-      if (docSnap.data().email === email) {
-        autorizado = true;
-      }
-    });
-
-    if (autorizado) {
+    // Verifica se o e-mail está na lista de autorizados
+    const q = query(collection(db, "emails"), where("email", "==", email));
+    const querySnapshot = await getDocs(q);
+    
+    if (!querySnapshot.empty) {
       showPlatform(email);
+      checkAdminStatus(email);
     } else {
       await signOut(auth);
       errorMsg.textContent = "E-mail não autorizado.";
@@ -778,23 +739,34 @@ window.loginGoogle = async function() {
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     const email = user.email.toLowerCase();
+    const q = query(collection(db, "emails"), where("email", "==", email));
+    const querySnapshot = await getDocs(q);
 
-    const query = await getDocs(collection(db, "emails"));
-    let autorizado = false;
-
-    query.forEach(docSnap => {
-      if (docSnap.data().email === email) {
-        autorizado = true;
-      }
-    });
-
-    if (autorizado) {
+    if (!querySnapshot.empty) {
       showPlatform(email);
+      checkAdminStatus(email);
     } else {
       await signOut(auth);
     }
   }
 });
+
+/* ================= ADMIN CHECK ================= */
+async function checkAdminStatus(email) {
+  try {
+    // Verifica se o e-mail está na coleção 'admins'
+    const q = query(collection(db, "admins"), where("email", "==", email));
+    const querySnapshot = await getDocs(q);
+    
+    if (!querySnapshot.empty) {
+      document.getElementById("adminTrigger").style.display = "inline-flex";
+    } else {
+      document.getElementById("adminTrigger").style.display = "none";
+    }
+  } catch (e) {
+    console.error("Erro ao verificar status de admin:", e);
+  }
+}
 
 /* ================= LOGOUT ================= */
 window.logout = function() {
@@ -805,9 +777,6 @@ window.logout = function() {
 </script>
 
 <script>
-/* ==================== STATE & CONFIG ==================== */
-const ADMIN_PASSWORD = "macaco";
-
 /* ==================== PLATFORM UI ==================== */
 function showPlatform(email) {
   document.getElementById("loginScreen").style.display = "none";
@@ -820,34 +789,14 @@ function showPlatform(email) {
 function openAdmin() {
   document.getElementById("loginScreen").style.display = "none"; 
   document.getElementById("adminPanel").style.display = "flex";
-  document.getElementById("adminPasswordStep").style.display = "block";
-  document.getElementById("adminContent").style.display = "none";
-  document.getElementById("adminPassInput").value = "";
-  document.getElementById("adminPassError").textContent = "";
+  document.getElementById("adminContent").style.display = "block";
+  loadEmails();
 }
 
 function closeAdmin() {
   document.getElementById("adminPanel").style.display = "none";
   document.getElementById("loginScreen").style.display = "flex";
 }
-
-function verifyAdmin() {
-  const pass = document.getElementById("adminPassInput").value;
-  const errEl = document.getElementById("adminPassError");
-
-  if (pass === ADMIN_PASSWORD) {
-    errEl.textContent = "";
-    document.getElementById("adminPasswordStep").style.display = "none";
-    document.getElementById("adminContent").style.display = "block";
-    loadEmails();
-  } else {
-    errEl.textContent = "Senha incorreta.";
-  }
-}
-
-document.getElementById("adminPassInput").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") verifyAdmin();
-});
 
 /* ==================== EMAIL MANAGEMENT (FIREBASE) ==================== */
 async function addEmail() {
@@ -879,11 +828,11 @@ async function loadEmails() {
   container.innerHTML = '<div class="no-emails">Carregando...</div>';
 
   try {
-    const query = await getDocs(collection(db, "emails"));
+    const querySnapshot = await getDocs(collection(db, "emails"));
     let html = "";
     let count = 0;
 
-    query.forEach(d => {
+    querySnapshot.forEach(d => {
       count++;
       html += '<div class="email-item">' +
         '<span>' + escapeHtml(d.data().email) + '</span>' +

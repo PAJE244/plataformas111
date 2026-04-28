@@ -6,133 +6,70 @@
 <title>100% PLATAFORMAS</title>
 
 <style>
-/* (SEU CSS INTEIRO PERMANECE IGUAL, NÃO MUDEI NADA) */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body{background:linear-gradient(135deg,#0a0a0a,#1a0000);color:#fff;min-height:100vh;}
-#loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
-.login-wrapper{text-align:center;width:100%;max-width:440px;}
-.login-logo{font-size:36px;font-weight:800;letter-spacing:3px;margin-bottom:8px;background:linear-gradient(135deg,#ff4d4d,#ff1a1a);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.login-subtitle{color:#ff4d4d;font-size:13px;opacity:0.7;margin-bottom:40px;}
-.login-card{background:rgba(255,255,255,0.04);border-radius:24px;padding:40px 30px;}
-.login-btn{width:100%;padding:14px;background:linear-gradient(135deg,#ff4d4d,#cc0000);border:none;border-radius:12px;color:#fff;font-weight:700;cursor:pointer;}
-.login-error{color:#ff4d4d;margin-top:10px;}
-</style>
-</head>
 
-<body>
-
-<div id="loginScreen">
-  <div class="login-wrapper">
-    <div class="login-logo">100% PLATAFORMAS</div>
-    <div class="login-subtitle">feito por Pajé 01</div>
-
-    <div class="login-card">
-      <h2>Entrar com Google</h2>
-      <p>Use sua conta autorizada</p>
-
-      <button class="login-btn" onclick="loginGoogle()">ENTRAR COM GOOGLE</button>
-      <div class="login-error" id="loginError"></div>
-    </div>
-  </div>
-</div>
-
-<div id="mainPlatform" style="display:none;">
-  <h1 style="text-align:center;margin-top:40px;">BEM VINDO</h1>
-  <p style="text-align:center;" id="loggedEmailDisplay"></p>
-  <div style="text-align:center;margin-top:20px;">
-    <button onclick="logout()" class="login-btn">SAIR</button>
-  </div>
-</div>
-
-<!-- FIREBASE -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
-import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBiUKpL3JZ4Dm4Ie29YwDIgV05Ly-ynOjQ",
-  authDomain: "plata-595b5.firebaseapp.com",
-  projectId: "plata-595b5",
-  storageBucket: "plata-595b5.firebasestorage.app",
-  messagingSenderId: "647145488423",
-  appId: "1:647145488423:web:e1f38ab5c5da9d986e4e02",
-  measurementId: "G-9N035WHD8V"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-const provider = new GoogleAuthProvider();
-
-/* ================= LOGIN GOOGLE ================= */
-window.loginGoogle = async function() {
-  const errorMsg = document.getElementById("loginError");
-
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const email = result.user.email.toLowerCase();
-
-    const query = await getDocs(collection(db, "emails"));
-    let autorizado = false;
-
-    query.forEach(doc => {
-      if (doc.data().email === email) {
-        autorizado = true;
-      }
-    });
-
-    if (autorizado) {
-      showPlatform(email);
-    } else {
-      await signOut(auth);
-      errorMsg.textContent = "E-mail não autorizado.";
-    }
-
-  } catch (e) {
-    errorMsg.textContent = "Erro ao logar com Google.";
-    console.error(e);
-  }
-};
-
-/* ================= AUTO LOGIN ================= */
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    const email = user.email.toLowerCase();
-
-    const query = await getDocs(collection(db, "emails"));
-    let autorizado = false;
-
-    query.forEach(doc => {
-      if (doc.data().email === email) {
-        autorizado = true;
-      }
-    });
-
-    if (autorizado) {
-      showPlatform(email);
-    } else {
-      await signOut(auth);
-    }
-  }
-});
-
-/* ================= UI ================= */
-function showPlatform(email) {
-  document.getElementById("loginScreen").style.display = "none";
-  document.getElementById("mainPlatform").style.display = "block";
-  document.getElementById("loggedEmailDisplay").textContent = email;
+body{
+  background:linear-gradient(135deg,#0a0a0a,#1a0000);
+  color:#fff;
+  min-height:100vh;
 }
 
-window.logout = function() {
-  signOut(auth);
-  location.reload();
-};
-</script>
+/* ==================== LOGIN SCREEN ==================== */
+#loginScreen{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:20px;
+}
 
-</body>
-</html>  padding:14px;
+.login-wrapper{
+  text-align:center;
+  width:100%;
+  max-width:440px;
+  animation:fadeUp 0.8s ease;
+}
+
+.login-logo{
+  font-size:36px;
+  font-weight:800;
+  letter-spacing:3px;
+  margin-bottom:8px;
+  background:linear-gradient(135deg,#ff4d4d,#ff1a1a);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.login-subtitle{
+  color:#ff4d4d;
+  font-size:13px;
+  opacity:0.7;
+  margin-bottom:40px;
+  letter-spacing:1px;
+}
+
+.login-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,0,0,0.15);
+  border-radius:24px;
+  padding:40px 30px;
+  backdrop-filter:blur(10px);
+}
+
+.login-card h2{
+  font-size:20px;
+  margin-bottom:6px;
+}
+
+.login-card p.desc{
+  font-size:13px;
+  opacity:0.6;
+  margin-bottom:25px;
+}
+
+.login-btn{
+  width:100%;
+  padding:14px;
   background:linear-gradient(135deg,#ff4d4d,#cc0000);
   border:none;
   border-radius:12px;
@@ -594,6 +531,43 @@ footer{
   .top-bar{flex-direction:column;gap:10px;}
   .add-email-row{flex-direction:column;}
 }
+
+/* Estilo para o grupo de input que agora é o botão do Google */
+.input-group{
+  position:relative;
+  margin-bottom:20px;
+}
+
+.input-group svg{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:18px;
+  height:18px;
+  fill:rgba(255,77,77,0.5);
+}
+
+.input-group input{
+  width:100%;
+  padding:14px 14px 14px 42px;
+  background:rgba(0,0,0,0.4);
+  border:1px solid rgba(255,0,0,0.2);
+  border-radius:12px;
+  color:#fff;
+  font-size:14px;
+  outline:none;
+  transition:0.3s;
+}
+
+.input-group input:focus{
+  border-color:#ff4d4d;
+  box-shadow:0 0 15px rgba(255,0,0,0.15);
+}
+
+.input-group input::placeholder{
+  color:rgba(255,255,255,0.3);
+}
 </style>
 </head>
 
@@ -606,14 +580,9 @@ footer{
 
     <div class="login-card">
       <h2>Entrar na plataforma</h2>
-      <p class="desc">Insira seu e-mail autorizado para continuar</p>
+      <p class="desc">Use sua conta Google autorizada para continuar</p>
 
-      <div class="input-group">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        <input type="email" id="emailInput" placeholder="Digite seu e-mail" autocomplete="off">
-      </div>
-
-      <button class="login-btn" onclick="attemptLogin()">ENTRAR</button>
+      <button class="login-btn" onclick="loginGoogle()">ENTRAR COM GOOGLE</button>
       <div class="login-error" id="loginError"></div>
     </div>
 
@@ -742,6 +711,7 @@ https://waygroundx.vercel.app/
 <!-- FIREBASE SDK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -755,37 +725,31 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
 
-// Expor para o escopo global para uso nos scripts normais
+// Expor para o escopo global
+window.auth = auth;
 window.db = db;
 window.collection = collection;
 window.addDoc = addDoc;
 window.getDocs = getDocs;
 window.deleteDoc = deleteDoc;
 window.doc = doc;
+window.signOut = signOut;
+window.signInWithPopup = signInWithPopup;
+window.provider = provider;
 
-// Verificar login automático ao carregar
-checkAutoLogin();
-</script>
-
-<script>
-/* ==================== STATE & CONFIG ==================== */
-const ADMIN_PASSWORD = "macaco";
-
-/* ==================== LOGIN ==================== */
-async function attemptLogin() {
-  const emailInput = document.getElementById("emailInput");
+/* ================= LOGIN GOOGLE ================= */
+window.loginGoogle = async function() {
   const errorMsg = document.getElementById("loginError");
-  const email = emailInput.value.trim().toLowerCase();
-
-  if (!email) {
-    errorMsg.textContent = "Digite um e-mail para entrar.";
-    errorMsg.classList.add("show");
-    return;
-  }
+  errorMsg.classList.remove("show");
 
   try {
+    const result = await signInWithPopup(auth, provider);
+    const email = result.user.email.toLowerCase();
+
     const query = await getDocs(collection(db, "emails"));
     let autorizado = false;
 
@@ -796,57 +760,60 @@ async function attemptLogin() {
     });
 
     if (autorizado) {
-      errorMsg.classList.remove("show");
       showPlatform(email);
-      localStorage.setItem("logged_email_100p", email);
     } else {
-      errorMsg.textContent = "Este e-mail não está autorizado.";
+      await signOut(auth);
+      errorMsg.textContent = "E-mail não autorizado.";
       errorMsg.classList.add("show");
     }
-  } catch (e) {
-    console.error(e);
-    errorMsg.textContent = "Erro ao conectar ao servidor.";
-    errorMsg.classList.add("show");
-  }
-}
 
-// Permitir Login apertando Enter
-document.getElementById("emailInput").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") attemptLogin();
+  } catch (e) {
+    errorMsg.textContent = "Erro ao logar com Google.";
+    errorMsg.classList.add("show");
+    console.error(e);
+  }
+};
+
+/* ================= AUTO LOGIN ================= */
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    const email = user.email.toLowerCase();
+
+    const query = await getDocs(collection(db, "emails"));
+    let autorizado = false;
+
+    query.forEach(docSnap => {
+      if (docSnap.data().email === email) {
+        autorizado = true;
+      }
+    });
+
+    if (autorizado) {
+      showPlatform(email);
+    } else {
+      await signOut(auth);
+    }
+  }
 });
 
-/* ==================== AUTO LOGIN CHECK ==================== */
-async function checkAutoLogin() {
-  const savedEmail = localStorage.getItem("logged_email_100p");
-  if (savedEmail) {
-    try {
-      const query = await getDocs(collection(db, "emails"));
-      let autorizado = false;
-      query.forEach(docSnap => {
-        if (docSnap.data().email === savedEmail.toLowerCase()) {
-          autorizado = true;
-        }
-      });
-      if (autorizado) {
-        showPlatform(savedEmail);
-      } else {
-        localStorage.removeItem("logged_email_100p");
-      }
-    } catch (e) {}
-  }
-}
+/* ================= LOGOUT ================= */
+window.logout = function() {
+  signOut(auth).then(() => {
+    location.reload();
+  });
+};
+</script>
 
-/* ==================== PLATFORM ==================== */
+<script>
+/* ==================== STATE & CONFIG ==================== */
+const ADMIN_PASSWORD = "macaco";
+
+/* ==================== PLATFORM UI ==================== */
 function showPlatform(email) {
   document.getElementById("loginScreen").style.display = "none";
   document.getElementById("adminPanel").style.display = "none";
   document.getElementById("mainPlatform").style.display = "block";
   document.getElementById("loggedEmailDisplay").textContent = email;
-}
-
-function logout() {
-  localStorage.removeItem("logged_email_100p");
-  location.reload();
 }
 
 /* ==================== ADMIN ==================== */
@@ -878,7 +845,6 @@ function verifyAdmin() {
   }
 }
 
-// Permitir verificação de senha apertando Enter
 document.getElementById("adminPassInput").addEventListener("keydown", function(e) {
   if (e.key === "Enter") verifyAdmin();
 });
@@ -904,7 +870,6 @@ async function addEmail() {
   }
 }
 
-// Adicionar e-mail apertando Enter
 document.getElementById("newEmailInput").addEventListener("keydown", function(e) {
   if (e.key === "Enter") addEmail();
 });
@@ -986,3 +951,4 @@ function copiar(id) {
 
 </body>
 </html>
+

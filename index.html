@@ -7,59 +7,712 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-body{background:linear-gradient(135deg,#0a0a0a,#1a0000);color:#fff;min-height:100vh;}
 
-/* LOGIN */
-#loginScreen{display:flex;align-items:center;justify-content:center;min-height:100vh;}
-.login-card{background:#111;padding:30px;border-radius:15px;width:90%;max-width:400px;text-align:center;}
-input{width:100%;padding:12px;margin:10px 0;border:none;border-radius:8px;}
-button{padding:12px;width:100%;border:none;border-radius:8px;background:#ff1a1a;color:#fff;font-weight:bold;cursor:pointer;}
+body{
+  background:linear-gradient(135deg,#0a0a0a,#1a0000);
+  color:#fff;
+  min-height:100vh;
+}
 
-#adminPanel,#mainPlatform{display:none;}
+/* ==================== LOGIN SCREEN ==================== */
+#loginScreen{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:20px;
+}
+
+.login-wrapper{
+  text-align:center;
+  width:100%;
+  max-width:440px;
+  animation:fadeUp 0.8s ease;
+}
+
+.login-logo{
+  font-size:36px;
+  font-weight:800;
+  letter-spacing:3px;
+  margin-bottom:8px;
+  background:linear-gradient(135deg,#ff4d4d,#ff1a1a);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.login-subtitle{
+  color:#ff4d4d;
+  font-size:13px;
+  opacity:0.7;
+  margin-bottom:40px;
+  letter-spacing:1px;
+}
+
+.login-card{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,0,0,0.15);
+  border-radius:24px;
+  padding:40px 30px;
+  backdrop-filter:blur(10px);
+}
+
+.login-card h2{
+  font-size:20px;
+  margin-bottom:6px;
+}
+
+.login-card p.desc{
+  font-size:13px;
+  opacity:0.6;
+  margin-bottom:25px;
+}
+
+.input-group{
+  position:relative;
+  margin-bottom:20px;
+}
+
+.input-group svg{
+  position:absolute;
+  left:14px;
+  top:50%;
+  transform:translateY(-50%);
+  width:18px;
+  height:18px;
+  fill:rgba(255,77,77,0.5);
+}
+
+.input-group input{
+  width:100%;
+  padding:14px 14px 14px 42px;
+  background:rgba(0,0,0,0.4);
+  border:1px solid rgba(255,0,0,0.2);
+  border-radius:12px;
+  color:#fff;
+  font-size:14px;
+  outline:none;
+  transition:0.3s;
+}
+
+.input-group input:focus{
+  border-color:#ff4d4d;
+  box-shadow:0 0 15px rgba(255,0,0,0.15);
+}
+
+.input-group input::placeholder{
+  color:rgba(255,255,255,0.3);
+}
+
+.login-btn{
+  width:100%;
+  padding:14px;
+  background:linear-gradient(135deg,#ff4d4d,#cc0000);
+  border:none;
+  border-radius:12px;
+  color:#fff;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+  letter-spacing:1px;
+}
+
+.login-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 25px rgba(255,0,0,0.35);
+}
+
+.login-btn:active{
+  transform:scale(0.98);
+}
+
+.login-error{
+  color:#ff4d4d;
+  font-size:13px;
+  margin-top:12px;
+  min-height:20px;
+  opacity:0;
+  transition:0.3s;
+}
+
+.login-error.show{
+  opacity:1;
+}
+
+/* Hidden admin trigger */
+.admin-trigger{
+  margin-top:35px;
+  opacity:0.12;
+  transition:0.3s;
+  cursor:pointer;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:28px;
+  height:28px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.05);
+}
+
+.admin-trigger:hover{
+  opacity:0.5;
+}
+
+.admin-trigger svg{
+  width:14px;
+  height:14px;
+  fill:rgba(255,77,77,0.6);
+}
+
+/* ==================== ADMIN PANEL ==================== */
+#adminPanel{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  padding:20px;
+}
+
+.admin-wrapper{
+  width:100%;
+  max-width:500px;
+  animation:fadeUp 0.6s ease;
+}
+
+.admin-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:25px;
+}
+
+.admin-header h2{
+  font-size:22px;
+  color:#ff4d4d;
+}
+
+.admin-close{
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  border:1px solid rgba(255,0,0,0.3);
+  background:rgba(0,0,0,0.3);
+  color:#ff4d4d;
+  font-size:18px;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:0.3s;
+}
+
+.admin-close:hover{
+  background:rgba(255,0,0,0.2);
+}
+
+/* Admin password step */
+.admin-password-step{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,0,0,0.15);
+  border-radius:24px;
+  padding:40px 30px;
+  text-align:center;
+}
+
+.admin-password-step h3{
+  font-size:18px;
+  margin-bottom:6px;
+}
+
+.admin-password-step p{
+  font-size:13px;
+  opacity:0.5;
+  margin-bottom:25px;
+}
+
+.admin-password-error{
+  color:#ff4d4d;
+  font-size:13px;
+  margin-top:10px;
+  min-height:20px;
+}
+
+/* Admin content */
+.admin-content{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,0,0,0.15);
+  border-radius:24px;
+  padding:30px;
+}
+
+.admin-content h3{
+  font-size:16px;
+  margin-bottom:5px;
+  color:#ff4d4d;
+}
+
+.admin-content > p{
+  font-size:12px;
+  opacity:0.5;
+  margin-bottom:20px;
+}
+
+.add-email-row{
+  display:flex;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+.add-email-row input{
+  flex:1;
+  padding:12px 14px;
+  background:rgba(0,0,0,0.4);
+  border:1px solid rgba(255,0,0,0.2);
+  border-radius:10px;
+  color:#fff;
+  font-size:13px;
+  outline:none;
+  transition:0.3s;
+}
+
+.add-email-row input:focus{
+  border-color:#ff4d4d;
+}
+
+.add-email-row input::placeholder{
+  color:rgba(255,255,255,0.3);
+}
+
+.add-email-btn{
+  padding:12px 20px;
+  background:linear-gradient(135deg,#ff4d4d,#cc0000);
+  border:none;
+  border-radius:10px;
+  color:#fff;
+  font-size:13px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+  white-space:nowrap;
+}
+
+.add-email-btn:hover{
+  box-shadow:0 4px 15px rgba(255,0,0,0.3);
+}
+
+.email-list{
+  max-height:300px;
+  overflow-y:auto;
+  padding-right:5px;
+}
+
+.email-list::-webkit-scrollbar{
+  width:4px;
+}
+
+.email-list::-webkit-scrollbar-thumb{
+  background:rgba(255,77,77,0.3);
+  border-radius:4px;
+}
+
+.email-item{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 14px;
+  background:rgba(0,0,0,0.25);
+  border:1px solid rgba(255,0,0,0.1);
+  border-radius:10px;
+  margin-bottom:8px;
+  animation:fadeUp 0.3s ease;
+}
+
+.email-item span{
+  font-size:13px;
+  color:rgba(255,255,255,0.8);
+  word-break:break-all;
+}
+
+.remove-btn{
+  padding:6px 12px;
+  background:rgba(255,0,0,0.15);
+  border:1px solid rgba(255,0,0,0.3);
+  border-radius:8px;
+  color:#ff4d4d;
+  font-size:12px;
+  cursor:pointer;
+  transition:0.3s;
+  white-space:nowrap;
+}
+
+.remove-btn:hover{
+  background:rgba(255,0,0,0.3);
+}
+
+.no-emails{
+  text-align:center;
+  padding:30px;
+  opacity:0.3;
+  font-size:13px;
+}
+
+/* ==================== MAIN PLATFORM ==================== */
+#mainPlatform{
+  display:none;
+}
+
+/* HEADER */
+.top-bar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 30px;
+  background:rgba(0,0,0,0.6);
+  border-bottom:1px solid rgba(255,0,0,0.1);
+}
+
+.top-bar .brand{
+  font-size:22px;
+  font-weight:800;
+  letter-spacing:2px;
+  background:linear-gradient(135deg,#ff4d4d,#ff1a1a);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.top-bar-right{
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
+
+.logged-email{
+  font-size:12px;
+  opacity:0.5;
+}
+
+.logout-btn{
+  padding:8px 16px;
+  background:rgba(255,0,0,0.15);
+  border:1px solid rgba(255,0,0,0.3);
+  border-radius:8px;
+  color:#ff4d4d;
+  font-size:12px;
+  font-weight:700;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.logout-btn:hover{
+  background:rgba(255,0,0,0.3);
+}
+
+header{
+  text-align:center;
+  padding:30px;
+}
+
+header h1{
+  font-size:30px;
+  letter-spacing:3px;
+}
+
+header span{
+  display:block;
+  margin-top:8px;
+  color:#ff4d4d;
+  font-size:14px;
+  opacity:0.8;
+}
+
+/* TUTORIAL */
+.tutorial{
+  margin:30px;
+  padding:20px;
+  background:rgba(255,0,0,0.08);
+  border:1px solid rgba(255,0,0,0.3);
+  border-radius:15px;
+  animation:fadeUp 1s ease;
+}
+
+.tutorial h2{
+  color:#ff4d4d;
+  margin-bottom:10px;
+}
+
+.tutorial p{
+  font-size:14px;
+  opacity:0.9;
+  margin-bottom:8px;
+}
+
+/* GRID */
+.container{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:25px;
+  padding:30px;
+}
+
+/* CARD */
+.card{
+  background:rgba(255,255,255,0.05);
+  border-radius:20px;
+  padding:20px;
+  transition:0.4s;
+  animation:fadeUp 0.8s ease;
+}
+
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow:0 0 20px rgba(255,0,0,0.3);
+}
+
+.card h2{
+  color:#ff4d4d;
+  margin-bottom:10px;
+}
+
+.script-box{
+  background:#000;
+  padding:12px;
+  border-radius:10px;
+  font-size:12px;
+  overflow-x:auto;
+  margin-bottom:15px;
+}
+
+/* BOTÕES */
+.buttons{
+  display:flex;
+  gap:10px;
+}
+
+button,a{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  text-align:center;
+  text-decoration:none;
+  font-weight:bold;
+}
+
+.copy{
+  background:#ff4d4d;
+  color:#fff;
+  transition:0.3s;
+}
+
+.copy:hover{
+  box-shadow:0 4px 15px rgba(255,0,0,0.3);
+}
+
+.access{
+  background:#fff;
+  color:#000;
+  transition:0.3s;
+}
+
+.access:hover{
+  box-shadow:0 4px 15px rgba(255,255,255,0.15);
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  opacity:0.7;
+}
+
+.brand-ft{
+  color:#ff4d4d;
+  margin-top:5px;
+}
+
+/* Toast */
+.toast{
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  padding:14px 24px;
+  background:rgba(0,0,0,0.85);
+  border:1px solid rgba(255,77,77,0.4);
+  border-radius:12px;
+  color:#fff;
+  font-size:13px;
+  z-index:9999;
+  animation:toastIn 0.4s ease,toastOut 0.4s ease 2s forwards;
+  backdrop-filter:blur(10px);
+}
+
+@keyframes toastIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes toastOut{
+  from{opacity:1;transform:translateY(0);}
+  to{opacity:0;transform:translateY(20px);}
+}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+@media(max-width:600px){
+  .login-card{padding:30px 20px;}
+  .top-bar{flex-direction:column;gap:10px;}
+  .add-email-row{flex-direction:column;}
+}
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
 <div id="loginScreen">
-  <div class="login-card">
-    <h2>Entrar</h2>
-    <input type="email" id="emailInput" placeholder="Seu e-mail">
-    <button onclick="attemptLogin()">ENTRAR</button>
-    <p id="loginError"></p>
-    <br>
-    <button onclick="openAdmin()">⚙ Admin</button>
-  </div>
-</div>
+  <div class="login-wrapper">
+    <div class="login-logo">100% PLATAFORMAS</div>
+    <div class="login-subtitle">feito por Pajé 01</div>
 
-<!-- ADMIN -->
-<div id="adminPanel">
-  <div class="login-card">
-    <h2>Painel Admin</h2>
-    <input type="password" id="adminPassInput" placeholder="Senha">
-    <button onclick="verifyAdmin()">Entrar</button>
+    <div class="login-card">
+      <h2>Entrar na plataforma</h2>
+      <p class="desc">Insira seu e-mail autorizado para continuar</p>
 
-    <div id="adminContent" style="display:none;">
-      <input type="email" id="newEmailInput" placeholder="Adicionar email">
-      <button onclick="addEmail()">Adicionar</button>
-      <div id="emailList"></div>
+      <div class="input-group">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <input type="email" id="emailInput" placeholder="Digite seu e-mail" autocomplete="off">
+      </div>
+
+      <button class="login-btn" onclick="attemptLogin()">ENTRAR</button>
+      <div class="login-error" id="loginError"></div>
     </div>
 
-    <button onclick="location.reload()">Voltar</button>
+    <div class="admin-trigger" onclick="openAdmin()" title="⚙">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
+    </div>
   </div>
 </div>
 
-<!-- MAIN -->
+<div id="adminPanel">
+  <div class="admin-wrapper">
+    <div class="admin-header">
+      <h2>🔐 Painel Admin</h2>
+      <button class="admin-close" onclick="closeAdmin()">✕</button>
+    </div>
+
+    <div class="admin-password-step" id="adminPasswordStep">
+      <h3>Senha de acesso</h3>
+      <p>Digite a senha para gerenciar os e-mails autorizados</p>
+      <div class="input-group">
+        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1s3.1 1.39 3.1 3.1v2z"/></svg>
+        <input type="password" id="adminPassInput" placeholder="Senha do administrador">
+      </div>
+      <button class="login-btn" onclick="verifyAdmin()">ACESSAR PAINEL</button>
+      <div class="admin-password-error" id="adminPassError"></div>
+    </div>
+
+    <div class="admin-content" id="adminContent" style="display:none;">
+      <h3>E-mails autorizados</h3>
+      <p>Adicione ou remova e-mails que podem acessar a plataforma</p>
+
+      <div class="add-email-row">
+        <input type="email" id="newEmailInput" placeholder="novo@email.com">
+        <button class="add-email-btn" onclick="addEmail()">+ Adicionar</button>
+      </div>
+
+      <div class="email-list" id="emailList">
+        <div class="no-emails">Nenhum e-mail autorizado ainda.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div id="mainPlatform">
-  <div class="login-card">
-    <h1>Bem-vindo</h1>
-    <p id="loggedEmailDisplay"></p>
-    <button onclick="logout()">Sair</button>
+  <div class="top-bar">
+    <div class="brand">100% PLATAFORMAS</div>
+    <div class="top-bar-right">
+      <span class="logged-email" id="loggedEmailDisplay"></span>
+      <button class="logout-btn" onclick="logout()">SAIR</button>
+    </div>
   </div>
+
+  <header>
+    <h1>100% PLATAFORMAS</h1>
+    <span>feito por Pajé 01</span>
+  </header>
+
+  <div class="tutorial">
+    <h2>📌 Como usar scripts com favoritos</h2>
+    <p><b>1.</b> Clique em "Copiar Script".</p>
+    <p><b>2.</b> Crie um novo favorito no navegador (estrela ⭐).</p>
+    <p><b>3.</b> Edite o favorito:</p>
+    <p>→ Nome: escolha qualquer nome (ex: "Script1")</p>
+    <p>→ URL: cole o script copiado</p>
+    <p><b>4.</b> Salve o favorito.</p>
+    <p><b>5.</b> Para usar:</p>
+    <p>→ Abra o site desejado</p>
+    <p>→ Clique no favorito OU digite o nome na barra de busca</p>
+    <p>⚠️ Alguns navegadores podem bloquear scripts automaticamente.</p>
+  </div>
+
+  <div class="container">
+
+    <div class="card">
+      <h2>Leia Paraná</h2>
+      <div class="script-box" id="s1">
+javascript:(function(){fetch('https://cdn.jsdelivr.net/gh/mzzvxm/LeiaPRBypass@latest/script.js').then(r=>r.text()).then(eval);})();
+      </div>
+      <div class="buttons">
+        <button class="copy" onclick="copiar('s1')">Copiar</button>
+        <a class="access" href="https://leiaparana.odilo.us/?locale=pt" target="_blank">Acessar</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Redação Paraná</h2>
+      <div class="script-box" id="s2">
+javascript:(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/mzzvxm/RedacaoBypass@main/script.js?t='+Date.now();document.head.appendChild(s)})();
+      </div>
+      <div class="buttons">
+        <button class="copy" onclick="copiar('s2')">Copiar</button>
+        <a class="access" href="https://redacao.pr.gov.br/" target="_blank">Acessar</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Khan Academy</h2>
+      <div class="script-box" id="s3">
+javascript:(async()=>{let e=window.location.hostname;if("khanacademy.org"!==e.split(".")?.slice(1)?.join("."))return;let a=e.split(".")[0];open(`https://khan.cupiditys.lol/?token=${(await (await fetch(`/api/internal/graphql/createTransferAuthTokenMutation?lang=${"www"===a?"en":a}&app=khanacademy`,{headers:{"content-type":"application/json","x-ka-fkey":"1"},referrer:"/settings/account",body:JSON.stringify({operationName:"createTransferAuthTokenMutation",query:"mutation createTransferAuthTokenMutation($canvasProfileKeyName: String) {\n  createTransferAuthToken(canvasProfileKeyName: $canvasProfileKeyName) {\n    token\n    __typename\n  }\n}",variables:{}}),method:"POST",mode:"cors",credentials:"include"})).json()).data.createTransferAuthToken.token}&l=${a}&c=${window.__KA_DATA__["KA-fastly-country"]}`)})();
+      </div>
+      <div class="buttons">
+        <button class="copy" onclick="copiar('s3')">Copiar</button>
+        <a class="access" href="https://www.khanacademy.org/" target="_blank">Acessar</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Quizizz</h2>
+      <div class="script-box" id="s4">
+https://waygroundx.vercel.app/
+      </div>
+      <div class="buttons">
+        <button class="copy" onclick="copiar('s4')">Copiar</button>
+        <a class="access" href="https://waygroundx.vercel.app/" target="_blank">Acessar</a>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    © 100% Plataformas
+    <div class="brand-ft">feito por Pajé 01</div>
+  </footer>
 </div>
 
-<!-- FIREBASE -->
+<!-- FIREBASE SDK -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
@@ -77,86 +730,230 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// Expor para o escopo global para uso nos scripts normais
 window.db = db;
 window.collection = collection;
 window.addDoc = addDoc;
 window.getDocs = getDocs;
 window.deleteDoc = deleteDoc;
 window.doc = doc;
+
+// Verificar login automático ao carregar
+checkAutoLogin();
 </script>
 
 <script>
+/* ==================== STATE & CONFIG ==================== */
 const ADMIN_PASSWORD = "macaco";
 
-/* LOGIN */
-async function attemptLogin(){
-  const email = document.getElementById("emailInput").value.toLowerCase();
-  const query = await getDocs(collection(db,"emails"));
+/* ==================== LOGIN ==================== */
+async function attemptLogin() {
+  const emailInput = document.getElementById("emailInput");
+  const errorMsg = document.getElementById("loginError");
+  const email = emailInput.value.trim().toLowerCase();
 
-  let autorizado = false;
+  if (!email) {
+    errorMsg.textContent = "Digite um e-mail para entrar.";
+    errorMsg.classList.add("show");
+    return;
+  }
 
-  query.forEach(docSnap=>{
-    if(docSnap.data().email === email){
-      autorizado = true;
+  try {
+    const query = await getDocs(collection(db, "emails"));
+    let autorizado = false;
+
+    query.forEach(docSnap => {
+      if (docSnap.data().email === email) {
+        autorizado = true;
+      }
+    });
+
+    if (autorizado) {
+      errorMsg.classList.remove("show");
+      showPlatform(email);
+      localStorage.setItem("logged_email_100p", email);
+    } else {
+      errorMsg.textContent = "Este e-mail não está autorizado.";
+      errorMsg.classList.add("show");
     }
-  });
-
-  if(autorizado){
-    document.getElementById("loginScreen").style.display="none";
-    document.getElementById("mainPlatform").style.display="block";
-    document.getElementById("loggedEmailDisplay").innerText=email;
-  }else{
-    document.getElementById("loginError").innerText="E-mail não autorizado";
+  } catch (e) {
+    console.error(e);
+    errorMsg.textContent = "Erro ao conectar ao servidor.";
+    errorMsg.classList.add("show");
   }
 }
 
-/* ADMIN */
-function openAdmin(){
-  document.getElementById("loginScreen").style.display="none";
-  document.getElementById("adminPanel").style.display="block";
-}
+// Permitir Login apertando Enter
+document.getElementById("emailInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") attemptLogin();
+});
 
-function verifyAdmin(){
-  const pass = document.getElementById("adminPassInput").value;
-  if(pass === ADMIN_PASSWORD){
-    document.getElementById("adminContent").style.display="block";
-    loadEmails();
-  }else{
-    alert("Senha errada");
+/* ==================== AUTO LOGIN CHECK ==================== */
+async function checkAutoLogin() {
+  const savedEmail = localStorage.getItem("logged_email_100p");
+  if (savedEmail) {
+    try {
+      const query = await getDocs(collection(db, "emails"));
+      let autorizado = false;
+      query.forEach(docSnap => {
+        if (docSnap.data().email === savedEmail.toLowerCase()) {
+          autorizado = true;
+        }
+      });
+      if (autorizado) {
+        showPlatform(savedEmail);
+      } else {
+        localStorage.removeItem("logged_email_100p");
+      }
+    } catch (e) {}
   }
 }
 
-/* FIREBASE */
-async function addEmail(){
-  const email = document.getElementById("newEmailInput").value.toLowerCase();
-  if(!email) return;
-
-  await addDoc(collection(db,"emails"),{email:email});
-  document.getElementById("newEmailInput").value="";
-  loadEmails();
+/* ==================== PLATFORM ==================== */
+function showPlatform(email) {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("adminPanel").style.display = "none";
+  document.getElementById("mainPlatform").style.display = "block";
+  document.getElementById("loggedEmailDisplay").textContent = email;
 }
 
-async function loadEmails(){
-  const list = document.getElementById("emailList");
-  list.innerHTML="";
-
-  const query = await getDocs(collection(db,"emails"));
-  query.forEach(d=>{
-    const div = document.createElement("div");
-    div.innerHTML = d.data().email + 
-      ' <button onclick="removeEmail(\''+d.id+'\')">Remover</button>';
-    list.appendChild(div);
-  });
-}
-
-async function removeEmail(id){
-  await deleteDoc(doc(db,"emails",id));
-  loadEmails();
-}
-
-/* LOGOUT */
-function logout(){
+function logout() {
+  localStorage.removeItem("logged_email_100p");
   location.reload();
+}
+
+/* ==================== ADMIN ==================== */
+function openAdmin() {
+  document.getElementById("loginScreen").style.display = "none"; 
+  document.getElementById("adminPanel").style.display = "flex";
+  document.getElementById("adminPasswordStep").style.display = "block";
+  document.getElementById("adminContent").style.display = "none";
+  document.getElementById("adminPassInput").value = "";
+  document.getElementById("adminPassError").textContent = "";
+}
+
+function closeAdmin() {
+  document.getElementById("adminPanel").style.display = "none";
+  document.getElementById("loginScreen").style.display = "flex";
+}
+
+function verifyAdmin() {
+  const pass = document.getElementById("adminPassInput").value;
+  const errEl = document.getElementById("adminPassError");
+
+  if (pass === ADMIN_PASSWORD) {
+    errEl.textContent = "";
+    document.getElementById("adminPasswordStep").style.display = "none";
+    document.getElementById("adminContent").style.display = "block";
+    loadEmails();
+  } else {
+    errEl.textContent = "Senha incorreta.";
+  }
+}
+
+// Permitir verificação de senha apertando Enter
+document.getElementById("adminPassInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") verifyAdmin();
+});
+
+/* ==================== EMAIL MANAGEMENT (FIREBASE) ==================== */
+async function addEmail() {
+  const input = document.getElementById("newEmailInput");
+  const email = input.value.trim().toLowerCase();
+
+  if (!email) return;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast("⚠️ E-mail inválido.");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "emails"), { email: email });
+    input.value = "";
+    loadEmails();
+    showToast("✅ E-mail autorizado com sucesso!");
+  } catch (e) {
+    showToast("❌ Erro ao adicionar e-mail.");
+  }
+}
+
+// Adicionar e-mail apertando Enter
+document.getElementById("newEmailInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") addEmail();
+});
+
+async function loadEmails() {
+  const container = document.getElementById("emailList");
+  container.innerHTML = '<div class="no-emails">Carregando...</div>';
+
+  try {
+    const query = await getDocs(collection(db, "emails"));
+    let html = "";
+    let count = 0;
+
+    query.forEach(d => {
+      count++;
+      html += '<div class="email-item">' +
+        '<span>' + escapeHtml(d.data().email) + '</span>' +
+        '<button class="remove-btn" onclick="removeEmail(\'' + d.id + '\')">Remover</button>' +
+        '</div>';
+    });
+
+    if (count === 0) {
+      container.innerHTML = '<div class="no-emails">Nenhum e-mail autorizado ainda.</div>';
+    } else {
+      container.innerHTML = html;
+    }
+  } catch (e) {
+    container.innerHTML = '<div class="no-emails">Erro ao carregar lista.</div>';
+  }
+}
+
+async function removeEmail(id) {
+  if (confirm("Deseja remover este e-mail?")) {
+    try {
+      await deleteDoc(doc(db, "emails", id));
+      loadEmails();
+      showToast("🗑️ E-mail removido.");
+    } catch (e) {
+      showToast("❌ Erro ao remover.");
+    }
+  }
+}
+
+/* ==================== UTILS ==================== */
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function showToast(msg) {
+  const oldToast = document.querySelector(".toast");
+  if(oldToast) oldToast.remove();
+
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(function() {
+    if (toast.parentNode) toast.parentNode.removeChild(toast);
+  }, 2600);
+}
+
+function copiar(id) {
+  const texto = document.getElementById(id).innerText.trim();
+  navigator.clipboard.writeText(texto).then(function() {
+    showToast("✅ Copiado para a área de transferência!");
+  }).catch(function() {
+    const ta = document.createElement("textarea");
+    ta.value = texto;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    showToast("✅ Copiado para a área de transferência!");
+  });
 }
 </script>
 

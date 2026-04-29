@@ -90,7 +90,6 @@ body{
   transform:scale(0.98);
 }
 
-/* BOTÃO WHATSAPP CONTATO */
 .contact-container {
   margin-top: 25px;
   padding-top: 20px;
@@ -123,7 +122,6 @@ body{
 .whatsapp-btn:hover {
   background: rgba(37, 211, 102, 0.2);
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.1);
 }
 
 .whatsapp-btn svg {
@@ -312,6 +310,7 @@ body{
 /* ==================== MAIN PLATFORM ==================== */
 #mainPlatform{
   display:none;
+  padding-top:70px;
 }
 
 /* HEADER */
@@ -324,8 +323,10 @@ body{
   border-bottom:1px solid rgba(255,0,0,0.1);
   position:fixed;
   top:0;
-  width:100%;
+  left:0;
+  right:0;
   z-index:999;
+  gap:20px;
 }
 
 .top-bar .brand{
@@ -335,12 +336,15 @@ body{
   background:linear-gradient(135deg,#ff4d4d,#ff1a1a);
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
+  flex-shrink:0;
 }
 
 .top-bar-right{
   display:flex;
   align-items:center;
   gap:15px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
 }
 
 .logged-email{
@@ -366,9 +370,6 @@ body{
   font-weight: 700;
   letter-spacing: 1px;
   margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
 }
 
 .monitoring-item {
@@ -413,6 +414,7 @@ body{
   font-weight:700;
   cursor:pointer;
   transition:0.3s;
+  flex-shrink:0;
 }
 
 .logout-btn:hover{
@@ -422,7 +424,6 @@ body{
 header{
   text-align:center;
   padding:30px 30px 10px 30px;
-  margin-top:70px;
 }
 
 header h1{
@@ -438,7 +439,6 @@ header span{
   opacity:0.8;
 }
 
-/* NOVO BOTÃO DE ADMIN NO CENTRO */
 .admin-center-btn{
   display:none;
   margin: 15px auto;
@@ -523,11 +523,7 @@ header span{
   font-size:12px;
   overflow-x:auto;
   margin-bottom:15px;
-  position:relative;
   min-height:50px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
 }
 
 .script-content {
@@ -535,10 +531,7 @@ header span{
   user-select: none;
   word-break: break-all;
   opacity: 0.4;
-  max-width: 100%;
 }
-
-
 
 /* BOTÕES */
 .buttons{
@@ -635,7 +628,6 @@ footer{
   text-align: center;
   box-shadow: 0 15px 50px rgba(255, 0, 0, 0.4);
   animation: scaleInModal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-  position: relative;
 }
 
 .security-modal-title {
@@ -691,6 +683,21 @@ footer{
   transform: scale(0.98);
 }
 
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes toastIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes toastOut{
+  from{opacity:1;transform:translateY(0);}
+  to{opacity:0;transform:translateY(20px);}
+}
+
 @keyframes fadeInOverlay {
   from {
     opacity: 0;
@@ -711,32 +718,49 @@ footer{
   }
 }
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes toastIn{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes toastOut{
-  from{opacity:1;transform:translateY(0);}
-  to{opacity:0;transform:translateY(20px);}
-}
-
-
-
-@media(max-width:600px){
-  .login-card{padding:30px 20px;}
-  .top-bar{flex-direction:column;gap:10px;position:relative;}
-  .add-email-row{flex-direction:column;}
-  header{margin-top:120px;}
+/* RESPONSIVIDADE */
+@media(max-width:768px){
+  .top-bar{
+    flex-wrap:wrap;
+    padding:12px 15px;
+    gap:10px;
+  }
+  
+  .top-bar .brand{
+    font-size:18px;
+    flex-basis:100%;
+  }
+  
+  .top-bar-right{
+    flex-basis:100%;
+    flex-direction:column;
+    gap:10px;
+  }
+  
   .monitoring-panel {
     min-width: auto;
     width: 100%;
   }
+  
+  .logout-btn {
+    width: 100%;
+  }
+  
+  #mainPlatform{
+    padding-top:140px;
+  }
+  
+  .container{
+    grid-template-columns:1fr;
+    padding:15px;
+    gap:15px;
+  }
+  
+  .tutorial{
+    margin:15px;
+    padding:15px;
+  }
+  
   .security-modal {
     padding: 30px 20px;
   }
@@ -748,6 +772,11 @@ footer{
   .security-modal-message {
     font-size: 14px;
   }
+}
+
+@media(max-width:600px){
+  .login-card{padding:30px 20px;}
+  .add-email-row{flex-direction:column;}
 }
 </style>
 </head>

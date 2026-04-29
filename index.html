@@ -1,1234 +1,1102 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>100% PLATAFORMAS</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}
-
-body{
-  background:linear-gradient(135deg,#0a0a0a,#1a0000);
-  color:#fff;
-  min-height:100vh;
-}
-
-/* ==================== LOGIN SCREEN ==================== */
-#loginScreen{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  min-height:100vh;
-  padding:20px;
-}
-
-.login-wrapper{
-  text-align:center;
-  width:100%;
-  max-width:440px;
-  animation:fadeUp 0.8s ease;
-}
-
-.login-logo{
-  font-size:36px;
-  font-weight:800;
-  letter-spacing:3px;
-  margin-bottom:8px;
-  background:linear-gradient(135deg,#ff4d4d,#ff1a1a);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.login-subtitle{
-  color:#ff4d4d;
-  font-size:13px;
-  opacity:0.7;
-  margin-bottom:40px;
-  letter-spacing:1px;
-}
-
-.login-card{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,0,0,0.15);
-  border-radius:24px;
-  padding:40px 30px;
-  backdrop-filter:blur(10px);
-}
-
-.login-card h2{
-  font-size:20px;
-  margin-bottom:6px;
-}
-
-.login-card p.desc{
-  font-size:13px;
-  opacity:0.6;
-  margin-bottom:25px;
-}
-
-.login-btn{
-  width:100%;
-  padding:14px;
-  background:linear-gradient(135deg,#ff4d4d,#cc0000);
-  border:none;
-  border-radius:12px;
-  color:#fff;
-  font-size:15px;
-  font-weight:700;
-  cursor:pointer;
-  transition:0.3s;
-  letter-spacing:1px;
-}
-
-.login-btn:hover{
-  transform:translateY(-2px);
-  box-shadow:0 8px 25px rgba(255,0,0,0.35);
-}
-
-.login-btn:active{
-  transform:scale(0.98);
-}
-
-.contact-container {
-  margin-top: 25px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.contact-text {
-  font-size: 12px;
-  opacity: 0.5;
-  margin-bottom: 12px;
-}
-
-.whatsapp-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
-  padding: 12px;
-  background: rgba(37, 211, 102, 0.1);
-  border: 1px solid rgba(37, 211, 102, 0.3);
-  border-radius: 12px;
-  color: #25d366;
-  font-size: 14px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.whatsapp-btn:hover {
-  background: rgba(37, 211, 102, 0.2);
-  transform: translateY(-2px);
-}
-
-.whatsapp-btn svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
-}
-
-.login-error{
-  color:#ff4d4d;
-  font-size:13px;
-  margin-top:12px;
-  min-height:20px;
-  opacity:0;
-  transition:0.3s;
-}
-
-.login-error.show{
-  opacity:1;
-}
-
-/* ==================== ADMIN PANEL ==================== */
-#adminPanel{
-  display:none;
-  align-items:center;
-  justify-content:center;
-  min-height:100vh;
-  padding:20px;
-}
-
-.admin-wrapper{
-  width:100%;
-  max-width:500px;
-  animation:fadeUp 0.6s ease;
-}
-
-.admin-header{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  margin-bottom:25px;
-}
-
-.admin-header h2{
-  font-size:22px;
-  color:#ff4d4d;
-}
-
-.admin-close{
-  width:36px;
-  height:36px;
-  border-radius:50%;
-  border:1px solid rgba(255,0,0,0.3);
-  background:rgba(0,0,0,0.3);
-  color:#ff4d4d;
-  font-size:18px;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:0.3s;
-}
-
-.admin-close:hover{
-  background:rgba(255,0,0,0.2);
-}
-
-.admin-content{
-  background:rgba(255,255,255,0.04);
-  border:1px solid rgba(255,0,0,0.15);
-  border-radius:24px;
-  padding:30px;
-}
-
-.admin-content h3{
-  font-size:16px;
-  margin-bottom:5px;
-  color:#ff4d4d;
-}
-
-.admin-content > p{
-  font-size:12px;
-  opacity:0.5;
-  margin-bottom:20px;
-}
-
-.add-email-row{
-  display:flex;
-  gap:10px;
-  margin-bottom:20px;
-}
-
-.add-email-row input{
-  flex:1;
-  padding:12px 14px;
-  background:rgba(0,0,0,0.4);
-  border:1px solid rgba(255,0,0,0.2);
-  border-radius:10px;
-  color:#fff;
-  font-size:13px;
-  outline:none;
-  transition:0.3s;
-}
-
-.add-email-row input:focus{
-  border-color:#ff4d4d;
-}
-
-.add-email-row input::placeholder{
-  color:rgba(255,255,255,0.3);
-}
-
-.add-email-btn{
-  padding:12px 20px;
-  background:linear-gradient(135deg,#ff4d4d,#cc0000);
-  border:none;
-  border-radius:10px;
-  color:#fff;
-  font-size:13px;
-  font-weight:700;
-  cursor:pointer;
-  transition:0.3s;
-  white-space:nowrap;
-}
-
-.add-email-btn:hover{
-  box-shadow:0 4px 15px rgba(255,0,0,0.3);
-}
-
-.email-list{
-  max-height:300px;
-  overflow-y:auto;
-  padding-right:5px;
-}
-
-.email-list::-webkit-scrollbar{
-  width:4px;
-}
-
-.email-list::-webkit-scrollbar-thumb{
-  background:rgba(255,77,77,0.3);
-  border-radius:4px;
-}
-
-.email-item{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:10px 14px;
-  background:rgba(0,0,0,0.25);
-  border:1px solid rgba(255,0,0,0.1);
-  border-radius:10px;
-  margin-bottom:8px;
-  animation:fadeUp 0.3s ease;
-}
-
-.email-item span{
-  font-size:13px;
-  color:rgba(255,255,255,0.8);
-  word-break:break-all;
-}
-
-.remove-btn{
-  padding:6px 12px;
-  background:rgba(255,0,0,0.15);
-  border:1px solid rgba(255,0,0,0.3);
-  border-radius:8px;
-  color:#ff4d4d;
-  font-size:12px;
-  cursor:pointer;
-  transition:0.3s;
-  white-space:nowrap;
-}
-
-.remove-btn:hover{
-  background:rgba(255,0,0,0.3);
-}
-
-.no-emails{
-  text-align:center;
-  padding:30px;
-  opacity:0.3;
-  font-size:13px;
-}
-
-/* ==================== MAIN PLATFORM ==================== */
-#mainPlatform{
-  display:none;
-  padding-top:70px;
-}
-
-/* HEADER */
-.top-bar{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:18px 30px;
-  background:rgba(0,0,0,0.6);
-  border-bottom:1px solid rgba(255,0,0,0.1);
-  position:fixed;
-  top:0;
-  left:0;
-  right:0;
-  z-index:999;
-  gap:20px;
-}
-
-.top-bar .brand{
-  font-size:22px;
-  font-weight:800;
-  letter-spacing:2px;
-  background:linear-gradient(135deg,#ff4d4d,#ff1a1a);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  flex-shrink:0;
-}
-
-.top-bar-right{
-  display:flex;
-  align-items:center;
-  gap:15px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
-}
-
-.logged-email{
-  font-size:12px;
-  opacity:0.5;
-}
-
-/* ========== MONITORING PANEL ========== */
-.monitoring-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 12px 16px;
-  background: rgba(255, 0, 0, 0.08);
-  border: 1px solid rgba(255, 77, 77, 0.4);
-  border-radius: 10px;
-  font-size: 11px;
-  min-width: 280px;
-}
-
-.monitoring-panel .session-header {
-  color: #ff4d4d;
-  font-weight: 700;
-  letter-spacing: 1px;
-  margin-bottom: 4px;
-}
-
-.monitoring-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.4;
-}
-
-.monitoring-item .label {
-  font-weight: 600;
-  color: #ff4d4d;
-  min-width: 100px;
-}
-
-.monitoring-item .value {
-  color: rgba(255, 255, 255, 0.8);
-  word-break: break-all;
-  font-family: 'Courier New', monospace;
-  font-size: 10px;
-}
-
-.monitoring-warning {
-  margin-top: 8px;
-  padding: 8px;
-  background: rgba(255, 77, 77, 0.15);
-  border-left: 2px solid #ff4d4d;
-  border-radius: 4px;
-  font-size: 10px;
-  color: #ff8888;
-  line-height: 1.3;
-}
-
-.logout-btn{
-  padding:8px 16px;
-  background:rgba(255,0,0,0.15);
-  border:1px solid rgba(255,0,0,0.3);
-  border-radius:8px;
-  color:#ff4d4d;
-  font-size:12px;
-  font-weight:700;
-  cursor:pointer;
-  transition:0.3s;
-  flex-shrink:0;
-}
-
-.logout-btn:hover{
-  background:rgba(255,0,0,0.3);
-}
-
-header{
-  text-align:center;
-  padding:30px 30px 10px 30px;
-}
-
-header h1{
-  font-size:30px;
-  letter-spacing:3px;
-}
-
-header span{
-  display:block;
-  margin-top:8px;
-  color:#ff4d4d;
-  font-size:14px;
-  opacity:0.8;
-}
-
-.admin-center-btn{
-  display:none;
-  margin: 15px auto;
-  padding: 10px 20px;
-  background: rgba(255, 77, 77, 0.1);
-  border: 1px solid rgba(255, 77, 77, 0.3);
-  border-radius: 12px;
-  color: #ff4d4d;
-  font-size: 13px;
-  font-weight: 600;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: 0.3s;
-  width: fit-content;
-}
-
-.admin-center-btn:hover{
-  background: rgba(255, 77, 77, 0.2);
-  transform: translateY(-2px);
-}
-
-.admin-center-btn svg{
-  width: 16px;
-  height: 16px;
-  fill: #ff4d4d;
-}
-
-/* TUTORIAL */
-.tutorial{
-  margin:20px 30px;
-  padding:20px;
-  background:rgba(255,0,0,0.08);
-  border:1px solid rgba(255,0,0,0.3);
-  border-radius:15px;
-  animation:fadeUp 1s ease;
-}
-
-.tutorial h2{
-  color:#ff4d4d;
-  margin-bottom:10px;
-}
-
-.tutorial p{
-  font-size:14px;
-  opacity:0.9;
-  margin-bottom:8px;
-}
-
-/* GRID */
-.container{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-  gap:25px;
-  padding:30px;
-}
-
-/* CARD */
-.card{
-  background:rgba(255,255,255,0.05);
-  border-radius:20px;
-  padding:20px;
-  transition:0.4s;
-  animation:fadeUp 0.8s ease;
-}
-
-.card:hover{
-  transform:translateY(-8px);
-  box-shadow:0 0 20px rgba(255,0,0,0.3);
-}
-
-.card h2{
-  color:#ff4d4d;
-  margin-bottom:10px;
-}
-
-.script-box{
-  background:#000;
-  padding:12px;
-  border-radius:10px;
-  font-size:12px;
-  overflow-x:auto;
-  margin-bottom:15px;
-  min-height:50px;
-}
-
-.script-content {
-  filter: blur(6px);
-  user-select: none;
-  word-break: break-all;
-  opacity: 0.4;
-}
-
-/* BOTÕES */
-.buttons{
-  display:flex;
-  gap:10px;
-}
-
-button,a{
-  flex:1;
-  padding:10px;
-  border:none;
-  border-radius:10px;
-  cursor:pointer;
-  text-align:center;
-  text-decoration:none;
-  font-weight:bold;
-}
-
-.copy{
-  background:#ff4d4d;
-  color:#fff;
-  transition:0.3s;
-}
-
-.copy:hover{
-  box-shadow:0 4px 15px rgba(255,0,0,0.3);
-}
-
-.access{
-  background:#fff;
-  color:#000;
-  transition:0.3s;
-}
-
-.access:hover{
-  box-shadow:0 4px 15px rgba(255,255,255,0.15);
-}
-
-/* FOOTER */
-footer{
-  text-align:center;
-  padding:20px;
-  opacity:0.7;
-}
-
-.brand-ft{
-  color:#ff4d4d;
-  margin-top:5px;
-}
-
-/* Toast */
-.toast{
-  position:fixed;
-  bottom:30px;
-  right:30px;
-  padding:14px 24px;
-  background:rgba(0,0,0,0.85);
-  border:1px solid rgba(255,77,77,0.4);
-  border-radius:12px;
-  color:#fff;
-  font-size:13px;
-  z-index:9999;
-  animation:toastIn 0.4s ease,toastOut 0.4s ease 2s forwards;
-  backdrop-filter:blur(10px);
-}
-
-/* ========== CENTERED SECURITY MODAL ========== */
-.security-modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 10000;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  animation: fadeInOverlay 0.4s ease;
-}
-
-.security-modal-overlay.show {
-  display: flex;
-}
-
-.security-modal {
-  background: linear-gradient(135deg, #1a0000, #2d0000);
-  border: 2px solid #ff4d4d;
-  border-radius: 20px;
-  padding: 40px;
-  max-width: 500px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0 15px 50px rgba(255, 0, 0, 0.4);
-  animation: scaleInModal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.security-modal-title {
-  color: #ff4d4d;
-  font-weight: 900;
-  font-size: 28px;
-  margin-bottom: 15px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-.security-modal-message {
-  color: rgba(255, 255, 255, 0.95);
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 30px;
-}
-
-.security-modal-countdown {
-  color: #ff8888;
-  font-size: 13px;
-  margin-bottom: 25px;
-  font-weight: 600;
-}
-
-.security-modal-buttons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-}
-
-.security-modal-close {
-  flex: 1;
-  padding: 14px 24px;
-  background: linear-gradient(135deg, #ff4d4d, #cc0000);
-  border: none;
-  border-radius: 12px;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.3s;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-.security-modal-close:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255, 0, 0, 0.4);
-}
-
-.security-modal-close:active {
-  transform: scale(0.98);
-}
-
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes toastIn{
-  from{opacity:0;transform:translateY(20px);}
-  to{opacity:1;transform:translateY(0);}
-}
-
-@keyframes toastOut{
-  from{opacity:1;transform:translateY(0);}
-  to{opacity:0;transform:translateY(20px);}
-}
-
-@keyframes fadeInOverlay {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes scaleInModal {
-  from {
-    opacity: 0;
-    transform: scale(0.8);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* RESPONSIVIDADE */
-@media(max-width:768px){
-  .top-bar{
-    flex-wrap:wrap;
-    padding:12px 15px;
-    gap:10px;
-  }
+<!DOCTYPE html>  <html lang="pt-BR">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>100% PLATAFORMAS</title>  <style>  
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif;}  
   
-  .top-bar .brand{
-    font-size:18px;
-    flex-basis:100%;
-  }
+body{  
+  background:linear-gradient(135deg,#0a0a0a,#1a0000);  
+  color:#fff;  
+  min-height:100vh;  
+}  
   
-  .top-bar-right{
-    flex-basis:100%;
-    flex-direction:column;
-    gap:10px;
-  }
+/* ==================== LOGIN SCREEN ==================== */  
+#loginScreen{  
+  display:flex;  
+  align-items:center;  
+  justify-content:center;  
+  min-height:100vh;  
+  padding:20px;  
+}  
   
-  .monitoring-panel {
-    min-width: auto;
-    width: 100%;
-  }
+.login-wrapper{  
+  text-align:center;  
+  width:100%;  
+  max-width:440px;  
+  animation:fadeUp 0.8s ease;  
+}  
   
-  .logout-btn {
-    width: 100%;
-  }
+.login-logo{  
+  font-size:36px;  
+  font-weight:800;  
+  letter-spacing:3px;  
+  margin-bottom:8px;  
+  background:linear-gradient(135deg,#ff4d4d,#ff1a1a);  
+  -webkit-background-clip:text;  
+  -webkit-text-fill-color:transparent;  
+}  
   
-  #mainPlatform{
-    padding-top:140px;
-  }
+.login-subtitle{  
+  color:#ff4d4d;  
+  font-size:13px;  
+  opacity:0.7;  
+  margin-bottom:40px;  
+  letter-spacing:1px;  
+}  
   
-  .container{
-    grid-template-columns:1fr;
-    padding:15px;
-    gap:15px;
-  }
+.login-card{  
+  background:rgba(255,255,255,0.04);  
+  border:1px solid rgba(255,0,0,0.15);  
+  border-radius:24px;  
+  padding:40px 30px;  
+  backdrop-filter:blur(10px);  
+}  
   
-  .tutorial{
-    margin:15px;
-    padding:15px;
-  }
+.login-card h2{  
+  font-size:20px;  
+  margin-bottom:6px;  
+}  
   
-  .security-modal {
-    padding: 30px 20px;
-  }
+.login-card p.desc{  
+  font-size:13px;  
+  opacity:0.6;  
+  margin-bottom:25px;  
+}  
   
-  .security-modal-title {
-    font-size: 22px;
-  }
+.login-btn{  
+  width:100%;  
+  padding:14px;  
+  background:linear-gradient(135deg,#ff4d4d,#cc0000);  
+  border:none;  
+  border-radius:12px;  
+  color:#fff;  
+  font-size:15px;  
+  font-weight:700;  
+  cursor:pointer;  
+  transition:0.3s;  
+  letter-spacing:1px;  
+}  
   
-  .security-modal-message {
-    font-size: 14px;
-  }
-}
+.login-btn:hover{  
+  transform:translateY(-2px);  
+  box-shadow:0 8px 25px rgba(255,0,0,0.35);  
+}  
+  
+.login-btn:active{  
+  transform:scale(0.98);  
+}  
+  
+.contact-container {  
+  margin-top: 25px;  
+  padding-top: 20px;  
+  border-top: 1px solid rgba(255, 255, 255, 0.05);  
+}  
+  
+.contact-text {  
+  font-size: 12px;  
+  opacity: 0.5;  
+  margin-bottom: 12px;  
+}  
+  
+.whatsapp-btn {  
+  display: flex;  
+  align-items: center;  
+  justify-content: center;  
+  gap: 8px;  
+  width: 100%;  
+  padding: 12px;  
+  background: rgba(37, 211, 102, 0.1);  
+  border: 1px solid rgba(37, 211, 102, 0.3);  
+  border-radius: 12px;  
+  color: #25d366;  
+  font-size: 14px;  
+  font-weight: 600;  
+  text-decoration: none;  
+  transition: 0.3s;  
+}  
+  
+.whatsapp-btn:hover {  
+  background: rgba(37, 211, 102, 0.2);  
+  transform: translateY(-2px);  
+}  
+  
+.whatsapp-btn svg {  
+  width: 18px;  
+  height: 18px;  
+  fill: currentColor;  
+}  
+  
+.login-error{  
+  color:#ff4d4d;  
+  font-size:13px;  
+  margin-top:12px;  
+  min-height:20px;  
+  opacity:0;  
+  transition:0.3s;  
+}  
+  
+.login-error.show{  
+  opacity:1;  
+}  
+  
+/* ==================== ADMIN PANEL ==================== */  
+#adminPanel{  
+  display:none;  
+  align-items:center;  
+  justify-content:center;  
+  min-height:100vh;  
+  padding:20px;  
+}  
+  
+.admin-wrapper{  
+  width:100%;  
+  max-width:500px;  
+  animation:fadeUp 0.6s ease;  
+}  
+  
+.admin-header{  
+  display:flex;  
+  align-items:center;  
+  justify-content:space-between;  
+  margin-bottom:25px;  
+}  
+  
+.admin-header h2{  
+  font-size:22px;  
+  color:#ff4d4d;  
+}  
+  
+.admin-close{  
+  width:36px;  
+  height:36px;  
+  border-radius:50%;  
+  border:1px solid rgba(255,0,0,0.3);  
+  background:rgba(0,0,0,0.3);  
+  color:#ff4d4d;  
+  font-size:18px;  
+  cursor:pointer;  
+  display:flex;  
+  align-items:center;  
+  justify-content:center;  
+  transition:0.3s;  
+}  
+  
+.admin-close:hover{  
+  background:rgba(255,0,0,0.2);  
+}  
+  
+.admin-content{  
+  background:rgba(255,255,255,0.04);  
+  border:1px solid rgba(255,0,0,0.15);  
+  border-radius:24px;  
+  padding:30px;  
+}  
+  
+.admin-content h3{  
+  font-size:16px;  
+  margin-bottom:5px;  
+  color:#ff4d4d;  
+}  
+  
+.admin-content > p{  
+  font-size:12px;  
+  opacity:0.5;  
+  margin-bottom:20px;  
+}  
+  
+.add-email-row{  
+  display:flex;  
+  gap:10px;  
+  margin-bottom:20px;  
+}  
+  
+.add-email-row input{  
+  flex:1;  
+  padding:12px 14px;  
+  background:rgba(0,0,0,0.4);  
+  border:1px solid rgba(255,0,0,0.2);  
+  border-radius:10px;  
+  color:#fff;  
+  font-size:13px;  
+  outline:none;  
+  transition:0.3s;  
+}  
+  
+.add-email-row input:focus{  
+  border-color:#ff4d4d;  
+}  
+  
+.add-email-row input::placeholder{  
+  color:rgba(255,255,255,0.3);  
+}  
+  
+.add-email-btn{  
+  padding:12px 20px;  
+  background:linear-gradient(135deg,#ff4d4d,#cc0000);  
+  border:none;  
+  border-radius:10px;  
+  color:#fff;  
+  font-size:13px;  
+  font-weight:700;  
+  cursor:pointer;  
+  transition:0.3s;  
+  white-space:nowrap;  
+}  
+  
+.add-email-btn:hover{  
+  box-shadow:0 4px 15px rgba(255,0,0,0.3);  
+}  
+  
+.email-list{  
+  max-height:300px;  
+  overflow-y:auto;  
+  padding-right:5px;  
+}  
+  
+.email-list::-webkit-scrollbar{  
+  width:4px;  
+}  
+  
+.email-list::-webkit-scrollbar-thumb{  
+  background:rgba(255,77,77,0.3);  
+  border-radius:4px;  
+}  
+  
+.email-item{  
+  display:flex;  
+  align-items:center;  
+  justify-content:space-between;  
+  padding:10px 14px;  
+  background:rgba(0,0,0,0.25);  
+  border:1px solid rgba(255,0,0,0.1);  
+  border-radius:10px;  
+  margin-bottom:8px;  
+  animation:fadeUp 0.3s ease;  
+}  
+  
+.email-item span{  
+  font-size:13px;  
+  color:rgba(255,255,255,0.8);  
+  word-break:break-all;  
+}  
+  
+.remove-btn{  
+  padding:6px 12px;  
+  background:rgba(255,0,0,0.15);  
+  border:1px solid rgba(255,0,0,0.3);  
+  border-radius:8px;  
+  color:#ff4d4d;  
+  font-size:12px;  
+  cursor:pointer;  
+  transition:0.3s;  
+  white-space:nowrap;  
+}  
+  
+.remove-btn:hover{  
+  background:rgba(255,0,0,0.3);  
+}  
+  
+.no-emails{  
+  text-align:center;  
+  padding:30px;  
+  opacity:0.3;  
+  font-size:13px;  
+}  
+  
+/* ==================== MAIN PLATFORM ==================== */  
+#mainPlatform{  
+  display:none;  
+  padding-top:70px;  
+}  
+  
+/* HEADER */  
+.top-bar{  
+  display:flex;  
+  align-items:center;  
+  justify-content:space-between;  
+  padding:18px 30px;  
+  background:rgba(0,0,0,0.6);  
+  border-bottom:1px solid rgba(255,0,0,0.1);  
+  position:fixed;  
+  top:0;  
+  left:0;  
+  right:0;  
+  z-index:999;  
+  gap:20px;  
+}  
+  
+.top-bar .brand{  
+  font-size:22px;  
+  font-weight:800;  
+  letter-spacing:2px;  
+  background:linear-gradient(135deg,#ff4d4d,#ff1a1a);  
+  -webkit-background-clip:text;  
+  -webkit-text-fill-color:transparent;  
+  flex-shrink:0;  
+}  
+  
+.top-bar-right{  
+  display:flex;  
+  align-items:center;  
+  gap:15px;  
+  flex-wrap:wrap;  
+  justify-content:flex-end;  
+}  
+  
+.logged-email{  
+  font-size:12px;  
+  opacity:0.5;  
+}  
+  
 
-@media(max-width:600px){
-  .login-card{padding:30px 20px;}
-  .add-email-row{flex-direction:column;}
-}
-</style>
-</head>
+.logout-btn{  
+  padding:8px 16px;  
+  background:rgba(255,0,0,0.15);  
+  border:1px solid rgba(255,0,0,0.3);  
+  border-radius:8px;  
+  color:#ff4d4d;  
+  font-size:12px;  
+  font-weight:700;  
+  cursor:pointer;  
+  transition:0.3s;  
+  flex-shrink:0;  
+}  
+  
+.logout-btn:hover{  
+  background:rgba(255,0,0,0.3);  
+}  
+  
+header{  
+  text-align:center;  
+  padding:30px 30px 10px 30px;  
+}  
+  
+header h1{  
+  font-size:30px;  
+  letter-spacing:3px;  
+}  
+  
+header span{  
+  display:block;  
+  margin-top:8px;  
+  color:#ff4d4d;  
+  font-size:14px;  
+  opacity:0.8;  
+}  
+  
+.admin-center-btn{  
+  display:none;  
+  margin: 15px auto;  
+  padding: 10px 20px;  
+  background: rgba(255, 77, 77, 0.1);  
+  border: 1px solid rgba(255, 77, 77, 0.3);  
+  border-radius: 12px;  
+  color: #ff4d4d;  
+  font-size: 13px;  
+  font-weight: 600;  
+  cursor: pointer;  
+  align-items: center;  
+  justify-content: center;  
+  gap: 8px;  
+  transition: 0.3s;  
+  width: fit-content;  
+}  
+  
+.admin-center-btn:hover{  
+  background: rgba(255, 77, 77, 0.2);  
+  transform: translateY(-2px);  
+}  
+  
+.admin-center-btn svg{  
+  width: 16px;  
+  height: 16px;  
+  fill: #ff4d4d;  
+}  
+  
+/* TUTORIAL */  
+.tutorial{  
+  margin:20px 30px;  
+  padding:20px;  
+  background:rgba(255,0,0,0.08);  
+  border:1px solid rgba(255,0,0,0.3);  
+  border-radius:15px;  
+  animation:fadeUp 1s ease;  
+}  
+  
+.tutorial h2{  
+  color:#ff4d4d;  
+  margin-bottom:10px;  
+}  
+  
+.tutorial p{  
+  font-size:14px;  
+  opacity:0.9;  
+  margin-bottom:8px;  
+}  
+  
+/* GRID */  
+.container{  
+  display:grid;  
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));  
+  gap:25px;  
+  padding:30px;  
+}  
+  
+/* CARD */  
+.card{  
+  background:rgba(255,255,255,0.05);  
+  border-radius:20px;  
+  padding:20px;  
+  transition:0.4s;  
+  animation:fadeUp 0.8s ease;  
+}  
+  
+.card:hover{  
+  transform:translateY(-8px);  
+  box-shadow:0 0 20px rgba(255,0,0,0.3);  
+}  
+  
+.card h2{  
+  color:#ff4d4d;  
+  margin-bottom:10px;  
+}  
+  
+.script-box{  
+  background:#000;  
+  padding:12px;  
+  border-radius:10px;  
+  font-size:12px;  
+  overflow-x:auto;  
+  margin-bottom:15px;  
+  min-height:50px;  
+}  
+  
+.script-content {  
+  filter: blur(6px);  
+  user-select: none;  
+  word-break: break-all;  
+  opacity: 0.4;  
+}  
+  
+/* BOTÕES */  
+.buttons{  
+  display:flex;  
+  gap:10px;  
+}  
+  
+button,a{  
+  flex:1;  
+  padding:10px;  
+  border:none;  
+  border-radius:10px;  
+  cursor:pointer;  
+  text-align:center;  
+  text-decoration:none;  
+  font-weight:bold;  
+}  
+  
+.copy{  
+  background:#ff4d4d;  
+  color:#fff;  
+  transition:0.3s;  
+}  
+  
+.copy:hover{  
+  box-shadow:0 4px 15px rgba(255,0,0,0.3);  
+}  
+  
+.access{  
+  background:#fff;  
+  color:#000;  
+  transition:0.3s;  
+}  
+  
+.access:hover{  
+  box-shadow:0 4px 15px rgba(255,255,255,0.15);  
+}  
+  
+/* FOOTER */  
+footer{  
+  text-align:center;  
+  padding:20px;  
+  opacity:0.7;  
+}  
+  
+.brand-ft{  
+  color:#ff4d4d;  
+  margin-top:5px;  
+}  
+  
+/* Toast */  
+.toast{  
+  position:fixed;  
+  bottom:30px;  
+  right:30px;  
+  padding:14px 24px;  
+  background:rgba(0,0,0,0.85);  
+  border:1px solid rgba(255,77,77,0.4);  
+  border-radius:12px;  
+  color:#fff;  
+  font-size:13px;  
+  z-index:9999;  
+  animation:toastIn 0.4s ease,toastOut 0.4s ease 2s forwards;  
+  backdrop-filter:blur(10px);  
+}  
+  
+/* ========== CENTERED SECURITY MODAL ========== */  
+.security-modal-overlay {  
+  display: none;  
+  position: fixed;  
+  top: 0;  
+  left: 0;  
+  width: 100%;  
+  height: 100%;  
+  background: rgba(0, 0, 0, 0.7);  
+  z-index: 10000;  
+  align-items: center;  
+  justify-content: center;  
+  padding: 20px;  
+  animation: fadeInOverlay 0.4s ease;  
+}  
+  
+.security-modal-overlay.show {  
+  display: flex;  
+}  
+  
+.security-modal {  
+  background: linear-gradient(135deg, #1a0000, #2d0000);  
+  border: 2px solid #ff4d4d;  
+  border-radius: 20px;  
+  padding: 40px;  
+  max-width: 500px;  
+  width: 100%;  
+  text-align: center;  
+  box-shadow: 0 15px 50px rgba(255, 0, 0, 0.4);  
+  animation: scaleInModal 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);  
+}  
+  
+.security-modal-title {  
+  color: #ff4d4d;  
+  font-weight: 900;  
+  font-size: 28px;  
+  margin-bottom: 15px;  
+  text-transform: uppercase;  
+  letter-spacing: 2px;  
+}  
+  
+.security-modal-message {  
+  color: rgba(255, 255, 255, 0.95);  
+  font-size: 16px;  
+  line-height: 1.6;  
+  margin-bottom: 30px;  
+}  
+  
+.security-modal-countdown {  
+  color: #ff8888;  
+  font-size: 13px;  
+  margin-bottom: 25px;  
+  font-weight: 600;  
+}  
+  
+.security-modal-buttons {  
+  display: flex;  
+  gap: 12px;  
+  justify-content: center;  
+}  
+  
+.security-modal-close {  
+  flex: 1;  
+  padding: 14px 24px;  
+  background: linear-gradient(135deg, #ff4d4d, #cc0000);  
+  border: none;  
+  border-radius: 12px;  
+  color: #fff;  
+  font-size: 14px;  
+  font-weight: 700;  
+  cursor: pointer;  
+  transition: 0.3s;  
+  text-transform: uppercase;  
+  letter-spacing: 1px;  
+}  
+  
+.security-modal-close:hover {  
+  transform: translateY(-2px);  
+  box-shadow: 0 8px 24px rgba(255, 0, 0, 0.4);  
+}  
+  
+.security-modal-close:active {  
+  transform: scale(0.98);  
+}  
+  
+@keyframes fadeUp{  
+  from{opacity:0;transform:translateY(20px);}  
+  to{opacity:1;transform:translateY(0);}  
+}  
+  
+@keyframes toastIn{  
+  from{opacity:0;transform:translateY(20px);}  
+  to{opacity:1;transform:translateY(0);}  
+}  
+  
+@keyframes toastOut{  
+  from{opacity:1;transform:translateY(0);}  
+  to{opacity:0;transform:translateY(20px);}  
+}  
+  
+@keyframes fadeInOverlay {  
+  from {  
+    opacity: 0;  
+  }  
+  to {  
+    opacity: 1;  
+  }  
+}  
+  
+@keyframes scaleInModal {  
+  from {  
+    opacity: 0;  
+    transform: scale(0.8);  
+  }  
+  to {  
+    opacity: 1;  
+    transform: scale(1);  
+  }  
+}  
+  
+/* RESPONSIVIDADE */  
+@media(max-width:768px){  
+  .top-bar{  
+    flex-wrap:wrap;  
+    padding:12px 15px;  
+    gap:10px;  
+  }  
+    
+  .top-bar .brand{  
+    font-size:18px;  
+    flex-basis:100%;  
+  }  
+    
+  .top-bar-right{  
+    flex-basis:100%;  
+    flex-direction:column;  
+    gap:10px;  
+  }  
+    
+    
+    
+  .logout-btn {  
+    width: 100%;  
+  }  
+    
+  #mainPlatform{  
+    padding-top:140px;  
+  }  
+    
+  .container{  
+    grid-template-columns:1fr;  
+    padding:15px;  
+    gap:15px;  
+  }  
+    
+  .tutorial{  
+    margin:15px;  
+    padding:15px;  
+  }  
+    
+  .security-modal {  
+    padding: 30px 20px;  
+  }  
+    
+  .security-modal-title {  
+    font-size: 22px;  
+  }  
+    
+  .security-modal-message {  
+    font-size: 14px;  
+  }  
+}  
+  
+@media(max-width:600px){  
+  .login-card{padding:30px 20px;}  
+  .add-email-row{flex-direction:column;}  
+}  
+</style>  </head>  <body>  <div id="loginScreen">  
+  <div class="login-wrapper">  
+    <div class="login-logo">100% PLATAFORMAS</div>  
+    <div class="login-subtitle">feito por Pajé 01</div>  <div class="login-card">  
+  <h2>Entrar na plataforma</h2>  
+  <p class="desc">Use sua conta Google autorizada para continuar</p>  
 
-<body>
+  <button class="login-btn" onclick="loginGoogle()">ENTRAR COM GOOGLE</button>  
+  <div class="login-error" id="loginError"></div>  
 
-<div id="loginScreen">
-  <div class="login-wrapper">
-    <div class="login-logo">100% PLATAFORMAS</div>
-    <div class="login-subtitle">feito por Pajé 01</div>
-
-    <div class="login-card">
-      <h2>Entrar na plataforma</h2>
-      <p class="desc">Use sua conta Google autorizada para continuar</p>
-
-      <button class="login-btn" onclick="loginGoogle()">ENTRAR COM GOOGLE</button>
-      <div class="login-error" id="loginError"></div>
-
-      <div class="contact-container">
-        <p class="contact-text">Não tem acesso? Compre agora:</p>
-        <a href="https://wa.me/554799574137?text=Olá,%20gostaria%20de%20ter%20acesso%20às%20scripts." target="_blank" class="whatsapp-btn">
-          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-          CONTATO PARA ACESSO
-        </a>
-      </div>
-    </div>
-  </div>
+  <div class="contact-container">  
+    <p class="contact-text">Não tem acesso? Compre agora:</p>  
+    <a href="https://wa.me/554799574137?text=Olá,%20gostaria%20de%20ter%20acesso%20às%20scripts." target="_blank" class="whatsapp-btn">  
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>  
+      CONTATO PARA ACESSO  
+    </a>  
+  </div>  
 </div>
 
-<div id="adminPanel">
-  <div class="admin-wrapper">
-    <div class="admin-header">
-      <h2>🔐 Painel Admin</h2>
-      <button class="admin-close" onclick="closeAdmin()">✕</button>
-    </div>
+  </div>  
+</div>  <div id="adminPanel">  
+  <div class="admin-wrapper">  
+    <div class="admin-header">  
+      <h2>🔐 Painel Admin</h2>  
+      <button class="admin-close" onclick="closeAdmin()">✕</button>  
+    </div>  <div class="admin-content" id="adminContent">  
+  <h3>E-mails autorizados</h3>  
+  <p>Adicione ou remova e-mails que podem acessar a plataforma</p>  
 
-    <div class="admin-content" id="adminContent">
-      <h3>E-mails autorizados</h3>
-      <p>Adicione ou remova e-mails que podem acessar a plataforma</p>
+  <div class="add-email-row">  
+    <input type="email" id="newEmailInput" placeholder="novo@email.com">  
+    <button class="add-email-btn" onclick="addEmail()">+ Adicionar</button>  
+  </div>  
 
-      <div class="add-email-row">
-        <input type="email" id="newEmailInput" placeholder="novo@email.com">
-        <button class="add-email-btn" onclick="addEmail()">+ Adicionar</button>
-      </div>
-
-      <div class="email-list" id="emailList">
-        <div class="no-emails">Nenhum e-mail autorizado ainda.</div>
-      </div>
-    </div>
-  </div>
+  <div class="email-list" id="emailList">  
+    <div class="no-emails">Nenhum e-mail autorizado ainda.</div>  
+  </div>  
 </div>
 
-<div id="mainPlatform">
-  <div class="top-bar">
-    <div class="brand">100% PLATAFORMAS</div>
-    <div class="top-bar-right">
-      <span class="logged-email" id="loggedEmailDisplay"></span>
-      <div class="monitoring-panel" id="monitoringPanel">
-        <div class="session-header">🔒 Sessão Protegida</div>
-        <div class="monitoring-item">
-          <span class="label">Conta:</span>
-          <span class="value" id="monitorEmail">-</span>
-        </div>
-        <div class="monitoring-item">
-          <span class="label">IP:</span>
-          <span class="value" id="monitorIP">verificando...</span>
-        </div>
-        <div class="monitoring-item">
-          <span class="label">Rede:</span>
-          <span class="value" id="monitorNetwork">ativa</span>
-        </div>
-        <div class="monitoring-warning">
-          ⚠️ Uso individual • Compartilhamentos podem gerar revogação do acesso
-        </div>
-      </div>
-      <button class="logout-btn" onclick="logout()">SAIR</button>
-    </div>
-  </div>
+  </div>  
+</div>  <div id="mainPlatform">  
+  <div class="top-bar">  
+    <div class="brand">100% PLATAFORMAS</div>  
+    <div class="top-bar-right">  
+      <span class="logged-email" id="loggedEmailDisplay"></span>  
+  
+      <button class="logout-btn" onclick="logout()">SAIR</button>  
+    </div>  
+  </div>    <header>  
+    <h1>100% PLATAFORMAS</h1>  
+    <span>feito por Pajé 01</span>  <button class="admin-center-btn" id="adminTrigger" onclick="openAdmin()">  
+  <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>  
+  PAINEL ADMINISTRATIVO  
+</button>
 
-  <header>
-    <h1>100% PLATAFORMAS</h1>
-    <span>feito por Pajé 01</span>
-    
-    <button class="admin-center-btn" id="adminTrigger" onclick="openAdmin()">
-      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
-      PAINEL ADMINISTRATIVO
-    </button>
-  </header>
+  </header>    <div class="tutorial">  
+    <h2>📌 Como usar scripts com favoritos</h2>  
+    <p><b>1.</b> Clique em "Copiar Script".</p>  
+    <p><b>2.</b> Crie um novo favorito no navegador (estrela ⭐).</p>  
+    <p><b>3.</b> Edite o favorito:</p>  
+    <p>→ Nome: escolha qualquer nome (ex: "Script1")</p>  
+    <p>→ URL: cole o script copiado</p>  
+    <p><b>4.</b> Salve o favorito.</p>  
+    <p><b>5.</b> Para usar:</p>  
+    <p>→ Abra o site desejado</p>  
+    <p>→ Clique no favorito OU digite o nome na barra de busca</p>  
+    <p>⚠️ Alguns navegadores podem bloquear scripts automaticamente.</p>  
+  </div>    <div class="container">  
+    <div class="card">  
+      <h2>Leia Paraná</h2>  
+      <div class="script-box">  
+        <div class="script-content" id="s1">javascript:(function(){fetch('https://cdn.jsdelivr.net/gh/mzzvxm/LeiaPRBypass@latest/script.js').then(r=>r.text()).then(eval);})();</div>  
+      </div>  
+      <div class="buttons">  
+        <button class="copy" onclick="copiar('s1')">Copiar</button>  
+        <a class="access" href="https://leiaparana.odilo.us/?locale=pt" target="_blank">Acessar</a>  
+      </div>  
+    </div>  <div class="card">  
+  <h2>Redação Paraná</h2>  
+  <div class="script-box">  
+    <div class="script-content" id="s2">javascript:(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/mzzvxm/RedacaoBypass@main/script.js?t='+Date.now();document.head.appendChild(s)})();</div>  
+  </div>  
+  <div class="buttons">  
+    <button class="copy" onclick="copiar('s2')">Copiar</button>  
+    <a class="access" href="https://redacao.pr.gov.br/" target="_blank">Acessar</a>  
+  </div>  
+</div>  
 
-  <div class="tutorial">
-    <h2>📌 Como usar scripts com favoritos</h2>
-    <p><b>1.</b> Clique em "Copiar Script".</p>
-    <p><b>2.</b> Crie um novo favorito no navegador (estrela ⭐).</p>
-    <p><b>3.</b> Edite o favorito:</p>
-    <p>→ Nome: escolha qualquer nome (ex: "Script1")</p>
-    <p>→ URL: cole o script copiado</p>
-    <p><b>4.</b> Salve o favorito.</p>
-    <p><b>5.</b> Para usar:</p>
-    <p>→ Abra o site desejado</p>
-    <p>→ Clique no favorito OU digite o nome na barra de busca</p>
-    <p>⚠️ Alguns navegadores podem bloquear scripts automaticamente.</p>
-  </div>
+<div class="card">  
+  <h2>Khan Academy</h2>  
+  <div class="script-box">  
+    <div class="script-content" id="s3">javascript:(async()=>{let e=window.location.hostname;if("khanacademy.org"!==e.split(".")?.slice(1)?.join("."))return;let a=e.split(".")[0];open(`https://khan.cupiditys.lol/?token=${(await (await fetch(`/api/internal/graphql/createTransferAuthTokenMutation?lang=${"www"===a?"en":a}&app=khanacademy`,{headers:{"content-type":"application/json","x-ka-fkey":"1"},referrer:"/settings/account",body:JSON.stringify({operationName:"createTransferAuthTokenMutation",query:"mutation createTransferAuthTokenMutation($canvasProfileKeyName: String) {\n  createTransferAuthToken(canvasProfileKeyName: $canvasProfileKeyName) {\n    token\n    __typename\n  }\n}",variables:{}}),method:"POST",mode:"cors",credentials:"include"})).json()).data.createTransferAuthToken.token}&l=${a}&c=${window.__KA_DATA__["KA-fastly-country"]}`)})();</div>  
+  </div>  
+  <div class="buttons">  
+    <button class="copy" onclick="copiar('s3')">Copiar</button>  
+    <a class="access" href="https://www.khanacademy.org/" target="_blank">Acessar</a>  
+  </div>  
+</div>  
 
-  <div class="container">
-    <div class="card">
-      <h2>Leia Paraná</h2>
-      <div class="script-box">
-        <div class="script-content" id="s1">javascript:(function(){fetch('https://cdn.jsdelivr.net/gh/mzzvxm/LeiaPRBypass@latest/script.js').then(r=>r.text()).then(eval);})();</div>
-      </div>
-      <div class="buttons">
-        <button class="copy" onclick="copiar('s1')">Copiar</button>
-        <a class="access" href="https://leiaparana.odilo.us/?locale=pt" target="_blank">Acessar</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Redação Paraná</h2>
-      <div class="script-box">
-        <div class="script-content" id="s2">javascript:(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/mzzvxm/RedacaoBypass@main/script.js?t='+Date.now();document.head.appendChild(s)})();</div>
-      </div>
-      <div class="buttons">
-        <button class="copy" onclick="copiar('s2')">Copiar</button>
-        <a class="access" href="https://redacao.pr.gov.br/" target="_blank">Acessar</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Khan Academy</h2>
-      <div class="script-box">
-        <div class="script-content" id="s3">javascript:(async()=>{let e=window.location.hostname;if("khanacademy.org"!==e.split(".")?.slice(1)?.join("."))return;let a=e.split(".")[0];open(`https://khan.cupiditys.lol/?token=${(await (await fetch(`/api/internal/graphql/createTransferAuthTokenMutation?lang=${"www"===a?"en":a}&app=khanacademy`,{headers:{"content-type":"application/json","x-ka-fkey":"1"},referrer:"/settings/account",body:JSON.stringify({operationName:"createTransferAuthTokenMutation",query:"mutation createTransferAuthTokenMutation($canvasProfileKeyName: String) {\n  createTransferAuthToken(canvasProfileKeyName: $canvasProfileKeyName) {\n    token\n    __typename\n  }\n}",variables:{}}),method:"POST",mode:"cors",credentials:"include"})).json()).data.createTransferAuthToken.token}&l=${a}&c=${window.__KA_DATA__["KA-fastly-country"]}`)})();</div>
-      </div>
-      <div class="buttons">
-        <button class="copy" onclick="copiar('s3')">Copiar</button>
-        <a class="access" href="https://www.khanacademy.org/" target="_blank">Acessar</a>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Quizizz</h2>
-      <div class="script-box">
-        <div class="script-content" id="s4">https://waygroundx.vercel.app/</div>
-      </div>
-      <div class="buttons">
-        <button class="copy" onclick="copiar('s4')">Copiar</button>
-        <a class="access" href="https://waygroundx.vercel.app/" target="_blank">Acessar</a>
-      </div>
-    </div>
-  </div>
-
-  <footer>
-    © 100% Plataformas
-    <div class="brand-ft">feito por Pajé 01</div>
-  </footer>
+<div class="card">  
+  <h2>Quizizz</h2>  
+  <div class="script-box">  
+    <div class="script-content" id="s4">https://waygroundx.vercel.app/</div>  
+  </div>  
+  <div class="buttons">  
+    <button class="copy" onclick="copiar('s4')">Copiar</button>  
+    <a class="access" href="https://waygroundx.vercel.app/" target="_blank">Acessar</a>  
+  </div>  
 </div>
 
-<!-- CENTERED SECURITY MODAL -->
-<div class="security-modal-overlay" id="securityModalOverlay">
-  <div class="security-modal">
-    <div class="security-modal-title">⚠️ Atividade Detectada</div>
-    <div class="security-modal-message">
-      Uso individual detectado. Sessão vinculada à sua conta. Compartilhamentos externos podem resultar em bloqueio imediato.
-    </div>
-    <div class="security-modal-countdown" id="countdownTimer">Fechando em <strong>5</strong>s</div>
-    <div class="security-modal-buttons">
-      <button class="security-modal-close" onclick="closeSecurityModal()">Entendi</button>
-    </div>
-  </div>
-</div>
-
-<!-- FIREBASE SDK -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBiUKpL3JZ4Dm4Ie29YwDIgV05Ly-ynOjQ",
-  authDomain: "plata-595b5.firebaseapp.com",
-  projectId: "plata-595b5",
-  storageBucket: "plata-595b5.firebasestorage.app",
-  messagingSenderId: "647145488423",
-  appId: "1:647145488423:web:e1f38ab5c5da9d986e4e02",
-  measurementId: "G-9N035WHD8V"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-
-window.auth = auth;
-window.db = db;
-window.collection = collection;
-window.addDoc = addDoc;
-window.getDocs = getDocs;
-window.deleteDoc = deleteDoc;
-window.doc = doc;
-window.signOut = signOut;
-window.signInWithPopup = signInWithPopup;
-window.provider = provider;
-window.query = query;
-window.where = where;
-
-window.loginGoogle = async function() {
-  const errorMsg = document.getElementById("loginError");
-  errorMsg.classList.remove("show");
-
-  try {
-    const result = await signInWithPopup(auth, provider);
-    const email = result.user.email.toLowerCase();
-
-    const q = query(collection(db, "emails"), where("email", "==", email));
-    const querySnapshot = await getDocs(q);
+  </div>    <footer>  
+    © 100% Plataformas  
+    <div class="brand-ft">feito por Pajé 01</div>  
+  </footer>  
+</div>  <!-- CENTERED SECURITY MODAL -->  <div class="security-modal-overlay" id="securityModalOverlay">  
+  <div class="security-modal">  
+    <div class="security-modal-title">⚠️ Atividade Detectada</div>  
+    <div class="security-modal-message">  
+      Uso individual detectado. Sessão vinculada à sua conta. Compartilhamentos externos podem resultar em bloqueio imediato.  
+    </div>  
+    <div class="security-modal-countdown" id="countdownTimer">Fechando em <strong>5</strong>s</div>  
+    <div class="security-modal-buttons">  
+      <button class="security-modal-close" onclick="closeSecurityModal()">Entendi</button>  
+    </div>  
+  </div>  
+</div>  <!-- FIREBASE SDK -->  <script type="module">  
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-app.js";  
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-auth.js";  
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, where } from "https://www.gstatic.com/firebasejs/12.12.1/firebase-firestore.js";  
+  
+const firebaseConfig = {  
+  apiKey: "AIzaSyBiUKpL3JZ4Dm4Ie29YwDIgV05Ly-ynOjQ",  
+  authDomain: "plata-595b5.firebaseapp.com",  
+  projectId: "plata-595b5",  
+  storageBucket: "plata-595b5.firebasestorage.app",  
+  messagingSenderId: "647145488423",  
+  appId: "1:647145488423:web:e1f38ab5c5da9d986e4e02",  
+  measurementId: "G-9N035WHD8V"  
+};  
+  
+const app = initializeApp(firebaseConfig);  
+const auth = getAuth(app);  
+const db = getFirestore(app);  
+const provider = new GoogleAuthProvider();  
+  
+window.auth = auth;  
+window.db = db;  
+window.collection = collection;  
+window.addDoc = addDoc;  
+window.getDocs = getDocs;  
+window.deleteDoc = deleteDoc;  
+window.doc = doc;  
+window.signOut = signOut;  
+window.signInWithPopup = signInWithPopup;  
+window.provider = provider;  
+window.query = query;  
+window.where = where;  
+  
+window.loginGoogle = async function() {  
+  const errorMsg = document.getElementById("loginError");  
+  errorMsg.classList.remove("show");  
+  
+  try {  
+    const result = await signInWithPopup(auth, provider);  
+    const email = result.user.email.toLowerCase();  
+  
+    const q = query(collection(db, "emails"), where("email", "==", email));  
+    const querySnapshot = await getDocs(q);  
+      
+    if (!querySnapshot.empty) {  
+      showPlatform(email);  
+      checkAdminStatus(email);  
+    } else {  
+      await signOut(auth);  
+      errorMsg.textContent = "E-mail não autorizado.";  
+      errorMsg.classList.add("show");  
+    }  
+  
+  } catch (e) {  
+    errorMsg.textContent = "Erro ao logar com Google.";  
+    errorMsg.classList.add("show");  
+    console.error(e);  
+  }  
+};  
+  
+onAuthStateChanged(auth, async (user) => {  
+  if (user) {  
+    const email = user.email.toLowerCase();  
+    const q = query(collection(db, "emails"), where("email", "==", email));  
+    const querySnapshot = await getDocs(q);  
+  
+    if (!querySnapshot.empty) {  
+      showPlatform(email);  
+      checkAdminStatus(email);  
+    } else {  
+      await signOut(auth);  
+    }  
+  }  
+});  
+  
+async function checkAdminStatus(email) {  
+  const masterAdmins = ["gabrieldacechen6@gmail.com"];  
     
-    if (!querySnapshot.empty) {
-      showPlatform(email);
-      checkAdminStatus(email);
-    } else {
-      await signOut(auth);
-      errorMsg.textContent = "E-mail não autorizado.";
-      errorMsg.classList.add("show");
-    }
-
-  } catch (e) {
-    errorMsg.textContent = "Erro ao logar com Google.";
-    errorMsg.classList.add("show");
-    console.error(e);
-  }
-};
-
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    const email = user.email.toLowerCase();
-    const q = query(collection(db, "emails"), where("email", "==", email));
-    const querySnapshot = await getDocs(q);
-
-    if (!querySnapshot.empty) {
-      showPlatform(email);
-      checkAdminStatus(email);
-    } else {
-      await signOut(auth);
-    }
-  }
-});
-
-async function checkAdminStatus(email) {
-  const masterAdmins = ["gabrieldacechen6@gmail.com"];
+  if (masterAdmins.includes(email)) {  
+    document.getElementById("adminTrigger").style.display = "flex";  
+    return;  
+  }  
   
-  if (masterAdmins.includes(email)) {
-    document.getElementById("adminTrigger").style.display = "flex";
-    return;
-  }
-
-  try {
-    const q = query(collection(db, "admins"), where("email", "==", email));
-    const querySnapshot = await getDocs(q);
+  try {  
+    const q = query(collection(db, "admins"), where("email", "==", email));  
+    const querySnapshot = await getDocs(q);  
+      
+    if (!querySnapshot.empty) {  
+      document.getElementById("adminTrigger").style.display = "flex";  
+    } else {  
+      document.getElementById("adminTrigger").style.display = "none";  
+    }  
+  } catch (e) {  
+    console.error("Erro ao verificar status de admin:", e);  
+  }  
+}  
+  
+window.logout = function() {  
+  signOut(auth).then(() => {  
+    location.reload();  
+  });  
+};  
+</script>  <script>  
+/* ==================== PLATFORM UI ==================== */  
+function showPlatform(email) {  
+  document.getElementById("loginScreen").style.display = "none";  
+  document.getElementById("adminPanel").style.display = "none";  
+  document.getElementById("mainPlatform").style.display = "block";  
+  document.getElementById("loggedEmailDisplay").textContent = email;  
+}  
+  
+/* ==================== ADMIN ==================== */  
+function openAdmin() {  
+  document.getElementById("mainPlatform").style.display = "none";   
+  document.getElementById("adminPanel").style.display = "flex";  
+  document.getElementById("adminContent").style.display = "block";  
+  loadEmails();  
+}  
+  
+function closeAdmin() {  
+  document.getElementById("adminPanel").style.display = "none";  
+  document.getElementById("mainPlatform").style.display = "block";  
+}  
+  
+/* ==================== EMAIL MANAGEMENT (FIREBASE) ==================== */  
+async function addEmail() {  
+  const input = document.getElementById("newEmailInput");  
+  const email = input.value.trim().toLowerCase();  
+  
+  if (!email) return;  
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {  
+    showToast("⚠️ E-mail inválido.");  
+    return;  
+  }  
+  
+  try {  
+    await addDoc(collection(db, "emails"), { email: email });  
+    input.value = "";  
+    loadEmails();  
+    showToast("✅ E-mail autorizado com sucesso!");  
+  } catch (e) {  
+    showToast("❌ Erro ao adicionar e-mail.");  
+  }  
+}  
+  
+document.getElementById("newEmailInput").addEventListener("keydown", function(e) {  
+  if (e.key === "Enter") addEmail();  
+});  
+  
+async function loadEmails() {  
+  const container = document.getElementById("emailList");  
+  container.innerHTML = '<div class="no-emails">Carregando...</div>';  
+  
+  try {  
+    const querySnapshot = await getDocs(collection(db, "emails"));  
+    let html = "";  
+    let count = 0;  
+  
+    querySnapshot.forEach(d => {  
+      count++;  
+      html += '<div class="email-item">' +  
+        '<span>' + escapeHtml(d.data().email) + '</span>' +  
+        '<button class="remove-btn" onclick="removeEmail(\'' + d.id + '\')">Remover</button>' +  
+        '</div>';  
+    });  
+  
+    if (count === 0) {  
+      container.innerHTML = '<div class="no-emails">Nenhum e-mail autorizado ainda.</div>';  
+    } else {  
+      container.innerHTML = html;  
+    }  
+  } catch (e) {  
+    container.innerHTML = '<div class="no-emails">Erro ao carregar lista.</div>';  
+  }  
+}  
+  
+async function removeEmail(id) {  
+  if (confirm("Deseja remover este e-mail?")) {  
+    try {  
+      await deleteDoc(doc(db, "emails", id));  
+      loadEmails();  
+      showToast("🗑️ E-mail removido.");  
+    } catch (e) {  
+      showToast("❌ Erro ao remover.");  
+    }  
+  }  
+}  
+  
+/* ==================== UTILS ==================== */  
+function escapeHtml(text) {  
+  const div = document.createElement("div");  
+  div.textContent = text;  
+  return div.innerHTML;  
+}  
+  
+function showToast(msg) {  
+  const oldToast = document.querySelector(".toast");  
+  if(oldToast) oldToast.remove();  
+  
+  const toast = document.createElement("div");  
+  toast.className = "toast";  
+  toast.textContent = msg;  
+  document.body.appendChild(toast);  
+  setTimeout(function() {  
+    if (toast.parentNode) toast.parentNode.removeChild(toast);  
+  }, 2600);  
+}  
+  
+/* ==================== SECURITY MODAL ==================== */  
+let countdownInterval;  
+  
+function showSecurityModal() {  
+  const overlay = document.getElementById("securityModalOverlay");  
+  overlay.classList.add("show");  
     
-    if (!querySnapshot.empty) {
-      document.getElementById("adminTrigger").style.display = "flex";
-    } else {
-      document.getElementById("adminTrigger").style.display = "none";
-    }
-  } catch (e) {
-    console.error("Erro ao verificar status de admin:", e);
-  }
-}
-
-window.logout = function() {
-  signOut(auth).then(() => {
-    location.reload();
-  });
-};
-</script>
-
-<script>
-/* ==================== PLATFORM UI ==================== */
-function showPlatform(email) {
-  document.getElementById("loginScreen").style.display = "none";
-  document.getElementById("adminPanel").style.display = "none";
-  document.getElementById("mainPlatform").style.display = "block";
-  document.getElementById("loggedEmailDisplay").textContent = email;
-  document.getElementById("monitorEmail").textContent = email;
-  updateMonitoringInfo();
-}
-
-/* ==================== MONITORING PANEL UPDATE ==================== */
-async function updateMonitoringInfo() {
-  try {
-    const ipResponse = await fetch('https://api.ipify.org?format=json');
-    const ipData = await ipResponse.json();
-    document.getElementById("monitorIP").textContent = ipData.ip;
-  } catch (e) {
-    document.getElementById("monitorIP").textContent = generateFakeIP();
-  }
-  
-  const networkId = generateNetworkId();
-  document.getElementById("monitorNetwork").textContent = networkId;
-}
-
-function generateFakeIP() {
-  return `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
-}
-
-function generateNetworkId() {
-  const networks = ["WiFi-5G", "Ethernet", "Cellular-4G", "VPN-Tunnel"];
-  const statuses = ["São Paulo", "Rio de Janeiro", "Minas Gerais", "Paraná"];
-  return `${networks[Math.floor(Math.random() * networks.length)]} • ${statuses[Math.floor(Math.random() * statuses.length)]}`;
-}
-
-/* ==================== ADMIN ==================== */
-function openAdmin() {
-  document.getElementById("mainPlatform").style.display = "none"; 
-  document.getElementById("adminPanel").style.display = "flex";
-  document.getElementById("adminContent").style.display = "block";
-  loadEmails();
-}
-
-function closeAdmin() {
-  document.getElementById("adminPanel").style.display = "none";
-  document.getElementById("mainPlatform").style.display = "block";
-}
-
-/* ==================== EMAIL MANAGEMENT (FIREBASE) ==================== */
-async function addEmail() {
-  const input = document.getElementById("newEmailInput");
-  const email = input.value.trim().toLowerCase();
-
-  if (!email) return;
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showToast("⚠️ E-mail inválido.");
-    return;
-  }
-
-  try {
-    await addDoc(collection(db, "emails"), { email: email });
-    input.value = "";
-    loadEmails();
-    showToast("✅ E-mail autorizado com sucesso!");
-  } catch (e) {
-    showToast("❌ Erro ao adicionar e-mail.");
-  }
-}
-
-document.getElementById("newEmailInput").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") addEmail();
-});
-
-async function loadEmails() {
-  const container = document.getElementById("emailList");
-  container.innerHTML = '<div class="no-emails">Carregando...</div>';
-
-  try {
-    const querySnapshot = await getDocs(collection(db, "emails"));
-    let html = "";
-    let count = 0;
-
-    querySnapshot.forEach(d => {
-      count++;
-      html += '<div class="email-item">' +
-        '<span>' + escapeHtml(d.data().email) + '</span>' +
-        '<button class="remove-btn" onclick="removeEmail(\'' + d.id + '\')">Remover</button>' +
-        '</div>';
-    });
-
-    if (count === 0) {
-      container.innerHTML = '<div class="no-emails">Nenhum e-mail autorizado ainda.</div>';
-    } else {
-      container.innerHTML = html;
-    }
-  } catch (e) {
-    container.innerHTML = '<div class="no-emails">Erro ao carregar lista.</div>';
-  }
-}
-
-async function removeEmail(id) {
-  if (confirm("Deseja remover este e-mail?")) {
-    try {
-      await deleteDoc(doc(db, "emails", id));
-      loadEmails();
-      showToast("🗑️ E-mail removido.");
-    } catch (e) {
-      showToast("❌ Erro ao remover.");
-    }
-  }
-}
-
-/* ==================== UTILS ==================== */
-function escapeHtml(text) {
-  const div = document.createElement("div");
-  div.textContent = text;
-  return div.innerHTML;
-}
-
-function showToast(msg) {
-  const oldToast = document.querySelector(".toast");
-  if(oldToast) oldToast.remove();
-
-  const toast = document.createElement("div");
-  toast.className = "toast";
-  toast.textContent = msg;
-  document.body.appendChild(toast);
-  setTimeout(function() {
-    if (toast.parentNode) toast.parentNode.removeChild(toast);
-  }, 2600);
-}
-
-/* ==================== SECURITY MODAL ==================== */
-let countdownInterval;
-
-function showSecurityModal() {
-  const overlay = document.getElementById("securityModalOverlay");
-  overlay.classList.add("show");
-  
-  let timeLeft = 5;
-  const countdownEl = document.getElementById("countdownTimer");
-  
-  countdownInterval = setInterval(() => {
-    timeLeft--;
-    countdownEl.innerHTML = `Fechando em <strong>${timeLeft}</strong>s`;
+  let timeLeft = 5;  
+  const countdownEl = document.getElementById("countdownTimer");  
     
-    if (timeLeft <= 0) {
-      clearInterval(countdownInterval);
-      closeSecurityModal();
-    }
-  }, 1000);
-}
-
-function closeSecurityModal() {
-  clearInterval(countdownInterval);
-  const overlay = document.getElementById("securityModalOverlay");
-  overlay.classList.remove("show");
-}
-
-/* ==================== COPY FUNCTION ==================== */
-function copiar(id) {
-  const texto = document.getElementById(id).innerText.trim();
-  navigator.clipboard.writeText(texto).then(function() {
-    showSecurityModal();
-    showToast("✅ Copiado para a área de transferência!");
-  }).catch(function() {
-    const ta = document.createElement("textarea");
-    ta.value = texto;
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand("copy");
-    document.body.removeChild(ta);
-    showSecurityModal();
-    showToast("✅ Copiado para a área de transferência!");
-  });
-}
-</script>
-
-</body>
+  countdownInterval = setInterval(() => {  
+    timeLeft--;  
+    countdownEl.innerHTML = `Fechando em <strong>${timeLeft}</strong>s`;  
+      
+    if (timeLeft <= 0) {  
+      clearInterval(countdownInterval);  
+      closeSecurityModal();  
+    }  
+  }, 1000);  
+}  
+  
+function closeSecurityModal() {  
+  clearInterval(countdownInterval);  
+  const overlay = document.getElementById("securityModalOverlay");  
+  overlay.classList.remove("show");  
+}  
+  
+/* ==================== COPY FUNCTION ==================== */  
+function copiar(id) {  
+  const texto = document.getElementById(id).innerText.trim();  
+  navigator.clipboard.writeText(texto).then(function() {  
+    showSecurityModal();  
+    showToast("✅ Copiado para a área de transferência!");  
+  }).catch(function() {  
+    const ta = document.createElement("textarea");  
+    ta.value = texto;  
+    document.body.appendChild(ta);  
+    ta.select();  
+    document.execCommand("copy");  
+    document.body.removeChild(ta);  
+    showSecurityModal();  
+    showToast("✅ Copiado para a área de transferência!");  
+  });  
+}  
+</script>  </body>  
 </html>
-

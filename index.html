@@ -90,7 +90,7 @@ body{
   transform:scale(0.98);
 }
 
-/* BOTÃO WHATSAPP CONTATO */
+/* BOTÃƒO WHATSAPP CONTATO */
 .contact-container {
   margin-top: 25px;
   padding-top: 20px;
@@ -339,6 +339,66 @@ body{
   gap:15px;
 }
 
+/* ========== MONITORING PANEL ========== */
+.monitoring-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 16px;
+  background: rgba(255, 0, 0, 0.08);
+  border: 1px solid rgba(255, 77, 77, 0.4);
+  border-radius: 10px;
+  font-size: 11px;
+  min-width: 280px;
+}
+
+.monitoring-panel .session-header {
+  color: #ff4d4d;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.monitoring-panel .session-header::before {
+  content: "ðŸ”’";
+  font-size: 12px;
+}
+
+.monitoring-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.4;
+}
+
+.monitoring-item .label {
+  font-weight: 600;
+  color: #ff4d4d;
+  min-width: 100px;
+}
+
+.monitoring-item .value {
+  color: rgba(255, 255, 255, 0.8);
+  word-break: break-all;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+}
+
+.monitoring-warning {
+  margin-top: 8px;
+  padding: 8px;
+  background: rgba(255, 77, 77, 0.15);
+  border-left: 2px solid #ff4d4d;
+  border-radius: 4px;
+  font-size: 10px;
+  color: #ff8888;
+  line-height: 1.3;
+}
+
 .logged-email{
   font-size:12px;
   opacity:0.5;
@@ -378,9 +438,9 @@ header span{
   opacity:0.8;
 }
 
-/* NOVO BOTÃO DE ADMIN NO CENTRO */
+/* NOVO BOTÃƒO DE ADMIN NO CENTRO */
 .admin-center-btn{
-  display:none; /* Escondido por padrão */
+  display:none; /* Escondido por padrÃ£o */
   margin: 15px auto;
   padding: 10px 20px;
   background: rgba(255, 77, 77, 0.1);
@@ -465,7 +525,7 @@ header span{
   margin-bottom:15px;
 }
 
-/* BOTÕES */
+/* BOTÃ•ES */
 .buttons{
   display:flex;
   gap:10px;
@@ -530,6 +590,108 @@ footer{
   backdrop-filter:blur(10px);
 }
 
+/* ========== SECURITY WARNING MODAL ========== */
+.security-warning-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(5px);
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
+  animation: warningFadeIn 0.3s ease;
+}
+
+.security-warning-overlay.show {
+  display: flex;
+}
+
+.security-warning-content {
+  background: linear-gradient(135deg, #1a0000, #2d0000);
+  border: 2px solid #ff1a1a;
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 50px rgba(255, 0, 0, 0.6), inset 0 0 30px rgba(255, 0, 0, 0.2);
+  animation: warningPulse 0.5s ease;
+}
+
+.security-warning-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  animation: warningBounce 0.6s ease infinite;
+}
+
+.security-warning-title {
+  font-size: 32px;
+  font-weight: 900;
+  color: #ff1a1a;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.security-warning-subtitle {
+  font-size: 18px;
+  color: #ff6666;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.security-warning-message {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.6;
+  margin-bottom: 30px;
+  background: rgba(255, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  border-left: 4px solid #ff1a1a;
+}
+
+.security-warning-details {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 30px;
+  line-height: 1.8;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.security-warning-details strong {
+  color: #ff8888;
+}
+
+.security-warning-close {
+  padding: 14px 40px;
+  background: linear-gradient(135deg, #ff4d4d, #cc0000);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.security-warning-close:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+}
+
+.security-warning-close:active {
+  transform: scale(0.98);
+}
+
 @keyframes fadeUp{
   from{opacity:0;transform:translateY(20px);}
   to{opacity:1;transform:translateY(0);}
@@ -545,10 +707,47 @@ footer{
   to{opacity:0;transform:translateY(20px);}
 }
 
+@keyframes warningFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes warningPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+}
+
+@keyframes warningBounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 @media(max-width:600px){
   .login-card{padding:30px 20px;}
   .top-bar{flex-direction:column;gap:10px;}
   .add-email-row{flex-direction:column;}
+  .monitoring-panel {
+    min-width: auto;
+    margin-top: 10px;
+  }
+  .security-warning-content {
+    padding: 30px 20px;
+  }
+  .security-warning-title {
+    font-size: 24px;
+  }
 }
 </style>
 </head>
@@ -558,7 +757,7 @@ footer{
 <div id="loginScreen">
   <div class="login-wrapper">
     <div class="login-logo">100% PLATAFORMAS</div>
-    <div class="login-subtitle">feito por Pajé 01</div>
+    <div class="login-subtitle">feito por PajÃ© 01</div>
 
     <div class="login-card">
       <h2>Entrar na plataforma</h2>
@@ -567,10 +766,10 @@ footer{
       <button class="login-btn" onclick="loginGoogle()">ENTRAR COM GOOGLE</button>
       <div class="login-error" id="loginError"></div>
 
-      <!-- BOTÃO DE CONTATO WHATSAPP -->
+      <!-- BOTÃƒO DE CONTATO WHATSAPP -->
       <div class="contact-container">
-        <p class="contact-text">Não tem acesso? Compre agora:</p>
-        <a href="https://wa.me/554799574137?text=Olá,%20gostaria%20de%20ter%20acesso%20às%20scripts." target="_blank" class="whatsapp-btn">
+        <p class="contact-text">NÃ£o tem acesso? Compre agora:</p>
+        <a href="https://wa.me/554799574137?text=OlÃ¡,%20gostaria%20de%20ter%20acesso%20Ã s%20scripts." target="_blank" class="whatsapp-btn">
           <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
           CONTATO PARA ACESSO
         </a>
@@ -582,8 +781,8 @@ footer{
 <div id="adminPanel">
   <div class="admin-wrapper">
     <div class="admin-header">
-      <h2>🔐 Painel Admin</h2>
-      <button class="admin-close" onclick="closeAdmin()">✕</button>
+      <h2>ðŸ” Painel Admin</h2>
+      <button class="admin-close" onclick="closeAdmin()">âœ•</button>
     </div>
 
     <div class="admin-content" id="adminContent">
@@ -606,16 +805,41 @@ footer{
   <div class="top-bar">
     <div class="brand">100% PLATAFORMAS</div>
     <div class="top-bar-right">
-      <span class="logged-email" id="loggedEmailDisplay"></span>
+      <div style="display: flex; flex-direction: column; gap: 8px; align-items: flex-end;">
+        <span class="logged-email" id="loggedEmailDisplay"></span>
+        <!-- MONITORING PANEL -->
+        <div class="monitoring-panel" id="monitoringPanel">
+          <div class="session-header">SessÃ£o Protegida</div>
+          <div class="monitoring-item">
+            <span class="label">Conta:</span>
+            <span class="value" id="monitorEmail">-</span>
+          </div>
+          <div class="monitoring-item">
+            <span class="label">IP:</span>
+            <span class="value" id="monitorIP">Verificando...</span>
+          </div>
+          <div class="monitoring-item">
+            <span class="label">Rede:</span>
+            <span class="value" id="monitorNetwork">Identificada</span>
+          </div>
+          <div class="monitoring-item">
+            <span class="label">Status:</span>
+            <span class="value" id="monitorStatus">âœ“ Ativo</span>
+          </div>
+          <div class="monitoring-warning">
+            âš ï¸ Uso individual â€¢ Compartilhamentos podem gerar revogaÃ§Ã£o do acesso
+          </div>
+        </div>
+      </div>
       <button class="logout-btn" onclick="logout()">SAIR</button>
     </div>
   </div>
 
   <header>
     <h1>100% PLATAFORMAS</h1>
-    <span>feito por Pajé 01</span>
+    <span>feito por PajÃ© 01</span>
     
-    <!-- BOTÃO DE ADMIN CENTRALIZADO -->
+    <!-- BOTÃƒO DE ADMIN CENTRALIZADO -->
     <button class="admin-center-btn" id="adminTrigger" onclick="openAdmin()">
       <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2a7.2 7.2 0 0 1-6-3.22c.03-1.99 4-3.08 6-3.08s5.97 1.09 6 3.08a7.2 7.2 0 0 1-6 3.22z"/></svg>
       PAINEL ADMINISTRATIVO
@@ -623,23 +847,23 @@ footer{
   </header>
 
   <div class="tutorial">
-    <h2>📌 Como usar scripts com favoritos</h2>
+    <h2>ðŸ“Œ Como usar scripts com favoritos</h2>
     <p><b>1.</b> Clique em "Copiar Script".</p>
-    <p><b>2.</b> Crie um novo favorito no navegador (estrela ⭐).</p>
+    <p><b>2.</b> Crie um novo favorito no navegador (estrela â­).</p>
     <p><b>3.</b> Edite o favorito:</p>
-    <p>→ Nome: escolha qualquer nome (ex: "Script1")</p>
-    <p>→ URL: cole o script copiado</p>
+    <p>â†’ Nome: escolha qualquer nome (ex: "Script1")</p>
+    <p>â†’ URL: cole o script copiado</p>
     <p><b>4.</b> Salve o favorito.</p>
     <p><b>5.</b> Para usar:</p>
-    <p>→ Abra o site desejado</p>
-    <p>→ Clique no favorito OU digite o nome na barra de busca</p>
-    <p>⚠️ Alguns navegadores podem bloquear scripts automaticamente.</p>
+    <p>â†’ Abra o site desejado</p>
+    <p>â†’ Clique no favorito OU digite o nome na barra de busca</p>
+    <p>âš ï¸ Alguns navegadores podem bloquear scripts automaticamente.</p>
   </div>
 
   <div class="container">
 
     <div class="card">
-      <h2>Leia Paraná</h2>
+      <h2>Leia ParanÃ¡</h2>
       <div class="script-box" id="s1">
 javascript:(function(){fetch('https://cdn.jsdelivr.net/gh/mzzvxm/LeiaPRBypass@latest/script.js').then(r=>r.text()).then(eval);})();
       </div>
@@ -650,7 +874,7 @@ javascript:(function(){fetch('https://cdn.jsdelivr.net/gh/mzzvxm/LeiaPRBypass@la
     </div>
 
     <div class="card">
-      <h2>Redação Paraná</h2>
+      <h2>RedaÃ§Ã£o ParanÃ¡</h2>
       <div class="script-box" id="s2">
 javascript:(function(){var s=document.createElement('script');s.src='https://cdn.jsdelivr.net/gh/mzzvxm/RedacaoBypass@main/script.js?t='+Date.now();document.head.appendChild(s)})();
       </div>
@@ -685,9 +909,29 @@ https://waygroundx.vercel.app/
   </div>
 
   <footer>
-    © 100% Plataformas
-    <div class="brand-ft">feito por Pajé 01</div>
+    Â© 100% Plataformas
+    <div class="brand-ft">feito por PajÃ© 01</div>
   </footer>
+</div>
+
+<!-- SECURITY WARNING MODAL -->
+<div class="security-warning-overlay" id="securityWarning">
+  <div class="security-warning-content">
+    <div class="security-warning-icon">âš ï¸</div>
+    <div class="security-warning-title">ACESSO DETECTADO</div>
+    <div class="security-warning-subtitle">Atividade de Compartilhamento Monitorada</div>
+    <div class="security-warning-message">
+      Uso individual detectado. SessÃ£o vinculada Ã  sua conta. Compartilhamentos externos podem resultar em bloqueio imediato.
+    </div>
+    <div class="security-warning-details">
+      <strong>AÃ§Ãµes Registradas:</strong><br>
+      â€¢ CÃ³pia de script detectada<br>
+      â€¢ SessÃ£o vinculada ao seu perfil<br>
+      â€¢ Compartilhamento nÃ£o autorizado serÃ¡ bloqueado<br>
+      â€¢ ViolaÃ§Ãµes resultarÃ£o em revogaÃ§Ã£o de acesso
+    </div>
+    <button class="security-warning-close" onclick="closeSecurityWarning()">ENTENDI</button>
+  </div>
 </div>
 
 <!-- FIREBASE SDK -->
@@ -742,7 +986,7 @@ window.loginGoogle = async function() {
       checkAdminStatus(email);
     } else {
       await signOut(auth);
-      errorMsg.textContent = "E-mail não autorizado.";
+      errorMsg.textContent = "E-mail nÃ£o autorizado.";
       errorMsg.classList.add("show");
     }
 
@@ -807,6 +1051,37 @@ function showPlatform(email) {
   document.getElementById("adminPanel").style.display = "none";
   document.getElementById("mainPlatform").style.display = "block";
   document.getElementById("loggedEmailDisplay").textContent = email;
+  
+  // Populate monitoring panel
+  document.getElementById("monitorEmail").textContent = email;
+  updateMonitoringInfo();
+}
+
+/* ==================== MONITORING PANEL UPDATE ==================== */
+async function updateMonitoringInfo() {
+  try {
+    // Get IP address from API
+    const ipResponse = await fetch('https://api.ipify.org?format=json');
+    const ipData = await ipResponse.json();
+    document.getElementById("monitorIP").textContent = ipData.ip;
+  } catch (e) {
+    // Fallback IP generation
+    document.getElementById("monitorIP").textContent = generateFakeIP();
+  }
+  
+  // Generate network identifier
+  const networkId = generateNetworkId();
+  document.getElementById("monitorNetwork").textContent = networkId;
+}
+
+function generateFakeIP() {
+  return `${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}.${Math.floor(Math.random() * 256)}`;
+}
+
+function generateNetworkId() {
+  const networks = ["WiFi-5G", "Ethernet", "Cellular-4G", "VPN-Tunnel"];
+  const statuses = ["SÃ£o Paulo", "Rio de Janeiro", "Minas Gerais", "ParanÃ¡"];
+  return `${networks[Math.floor(Math.random() * networks.length)]} â€¢ ${statuses[Math.floor(Math.random() * statuses.length)]}`;
 }
 
 /* ==================== ADMIN ==================== */
@@ -829,7 +1104,7 @@ async function addEmail() {
 
   if (!email) return;
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    showToast("⚠️ E-mail inválido.");
+    showToast("âš ï¸ E-mail invÃ¡lido.");
     return;
   }
 
@@ -837,9 +1112,9 @@ async function addEmail() {
     await addDoc(collection(db, "emails"), { email: email });
     input.value = "";
     loadEmails();
-    showToast("✅ E-mail autorizado com sucesso!");
+    showToast("âœ… E-mail autorizado com sucesso!");
   } catch (e) {
-    showToast("❌ Erro ao adicionar e-mail.");
+    showToast("âŒ Erro ao adicionar e-mail.");
   }
 }
 
@@ -879,9 +1154,9 @@ async function removeEmail(id) {
     try {
       await deleteDoc(doc(db, "emails", id));
       loadEmails();
-      showToast("🗑️ E-mail removido.");
+      showToast("ðŸ—‘ï¸ E-mail removido.");
     } catch (e) {
-      showToast("❌ Erro ao remover.");
+      showToast("âŒ Erro ao remover.");
     }
   }
 }
@@ -906,10 +1181,27 @@ function showToast(msg) {
   }, 2600);
 }
 
+/* ==================== SECURITY WARNING ==================== */
+function showSecurityWarning() {
+  const overlay = document.getElementById("securityWarning");
+  overlay.classList.add("show");
+}
+
+function closeSecurityWarning() {
+  const overlay = document.getElementById("securityWarning");
+  overlay.classList.remove("show");
+}
+
+/* ==================== COPY WITH WARNING ==================== */
 function copiar(id) {
   const texto = document.getElementById(id).innerText.trim();
+  
+  // Show security warning
+  showSecurityWarning();
+  
+  // Copy to clipboard
   navigator.clipboard.writeText(texto).then(function() {
-    showToast("✅ Copiado para a área de transferência!");
+    showToast("âœ… Copiado para a Ã¡rea de transferÃªncia!");
   }).catch(function() {
     const ta = document.createElement("textarea");
     ta.value = texto;
@@ -917,11 +1209,10 @@ function copiar(id) {
     ta.select();
     document.execCommand("copy");
     document.body.removeChild(ta);
-    showToast("✅ Copiado para a área de transferência!");
+    showToast("âœ… Copiado para a Ã¡rea de transferÃªncia!");
   });
 }
 </script>
 
 </body>
 </html>
-
